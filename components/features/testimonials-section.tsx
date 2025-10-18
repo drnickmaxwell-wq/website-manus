@@ -196,7 +196,7 @@ export function TestimonialsSection() {
                       <Quote className="w-8 h-8 text-brand-turquoise mb-4" />
                       
                       <blockquote className="text-lg text-brand-text leading-relaxed mb-6">
-                        "{currentTestimonial.quote}"
+                        &ldquo;{currentTestimonial.quote}&rdquo;
                       </blockquote>
 
                       <div className="flex items-center justify-between">

@@ -159,7 +159,7 @@ export function Footer() {
               <div className="mb-6">
                 <Image
                   src="/logos/horizontal-title-turquoise-512.png"
-                  alt="St Mary's House Dental Care"
+                  alt="St Mary’s House Dental Care"
                   width={200}
                   height={100}
                   className="h-12 w-auto mb-4"
@@ -169,7 +169,7 @@ export function Footer() {
                   Advanced AI-powered 3D dentistry treatments with a personal touch.
                 </p>
                 <p className="text-brand-magenta font-semibold text-lg">
-                  "Going the Extra Smile"
+                  “Going the Extra Smile”
                 </p>
               </div>
 
@@ -346,7 +346,7 @@ export function Footer() {
         <div className="container-luxury">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <p className="text-brand-muted text-sm">
-              © {currentYear} St Mary's House Dental Care. All rights reserved.
+              © {currentYear} St Mary’s House Dental Care. All rights reserved.
             </p>
             <div className="flex items-center gap-4 text-sm text-brand-muted">
               <span>GDC Registration: 123456</span>

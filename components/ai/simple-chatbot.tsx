@@ -24,6 +24,28 @@ import TextareaAutosize from 'react-textarea-autosize';
 import { LuxuryButton } from '@/components/ui/luxury-button';
 import { LoadingSpinner } from '@/components/effects/loading-animations';
 
+type SpeechRecognitionEventLike = {
+  results: ArrayLike<{ 0: { transcript: string } }>;
+};
+
+type SpeechRecognitionLike = {
+  continuous: boolean;
+  interimResults: boolean;
+  lang: string;
+  start: () => void;
+  stop: () => void;
+  onresult: ((event: SpeechRecognitionEventLike) => void) | null;
+  onerror: (() => void) | null;
+  onend: (() => void) | null;
+};
+
+type SpeechRecognitionConstructor = new () => SpeechRecognitionLike;
+
+type SpeechRecognitionWindow = Window & {
+  webkitSpeechRecognition?: SpeechRecognitionConstructor;
+  SpeechRecognition?: SpeechRecognitionConstructor;
+};
+
 interface ChatMessage {
   id: string;
   role: 'user' | 'assistant';
@@ -31,7 +53,6 @@ interface ChatMessage {
   timestamp: Date;
   emotion?: string[];
 }
-
 interface SimpleChatbotProps {
   className?: string;
   initialMessage?: string;
@@ -201,36 +222,41 @@ export function SimpleChatbot({
   };
 
   const handleVoiceInput = () => {
-    if ('webkitSpeechRecognition' in window || 'SpeechRecognition' in window) {
-      const SpeechRecognition = (window as any).webkitSpeechRecognition || (window as any).SpeechRecognition;
-      const recognition = new SpeechRecognition();
-      
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'en-GB';
+    const speechWindow = window as SpeechRecognitionWindow;
+    const SpeechRecognitionCtor = speechWindow.SpeechRecognition || speechWindow.webkitSpeechRecognition;
 
-      if (isListening) {
-        recognition.stop();
-        setIsListening(false);
-      } else {
-        recognition.start();
-        setIsListening(true);
-        
-        recognition.onresult = (event: any) => {
-          const transcript = event.results[0][0].transcript;
-          setInput(transcript);
-          setIsListening(false);
-        };
-        
-        recognition.onerror = () => {
-          setIsListening(false);
-        };
-        
-        recognition.onend = () => {
-          setIsListening(false);
-        };
-      }
+    if (!SpeechRecognitionCtor) {
+      return;
     }
+
+    const recognition = new SpeechRecognitionCtor();
+
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-GB';
+
+    if (isListening) {
+      recognition.stop();
+      setIsListening(false);
+      return;
+    }
+
+    recognition.start();
+    setIsListening(true);
+
+    recognition.onresult = (event: SpeechRecognitionEventLike) => {
+      const transcript = event.results[0][0].transcript;
+      setInput(transcript);
+      setIsListening(false);
+    };
+
+    recognition.onerror = () => {
+      setIsListening(false);
+    };
+
+    recognition.onend = () => {
+      setIsListening(false);
+    };
   };
 
   const handleSpeak = (text: string) => {

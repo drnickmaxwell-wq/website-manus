@@ -59,7 +59,7 @@ export function ExactHeroSection() {
           <p className="text-xl md:text-2xl text-white/90 mb-8 max-w-4xl mx-auto leading-relaxed">
             Experience the future of dentistry with our AI-powered 3D treatments, 
             luxury coastal setting, and award-winning patient care. 
-            Book your consultation today and discover why we're "Going the Extra Smile."
+            Book your consultation today and discover why we’re “Going the Extra Smile.”
           </p>
 
           {/* CTA Buttons */}

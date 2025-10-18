@@ -106,8 +106,8 @@ export function ExactScreenshotTypography() {
           >
             Experience the future of dentistry with our AI-powered 3D treatments, 
             luxury coastal setting, and award-winning patient care. 
-            Book your consultation today and discover why we're "Going the 
-            Extra Smile."
+            Book your consultation today and discover why we’re “Going the
+            Extra Smile.”
           </p>
 
           {/* CTA Buttons - EXACT styling from screenshot */}
