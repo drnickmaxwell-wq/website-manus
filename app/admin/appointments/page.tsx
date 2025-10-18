@@ -313,7 +313,7 @@ export default function AppointmentsPage() {
                           
                           {appointment.notes && (
                             <p className="text-sm text-gray-600 mt-2 italic">
-                              "{appointment.notes}"
+                              &ldquo;{appointment.notes}&rdquo;
                             </p>
                           )}
                         </div>

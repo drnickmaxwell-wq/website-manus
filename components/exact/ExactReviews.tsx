@@ -113,7 +113,7 @@ export function ExactReviews() {
               </div>
               
               {/* Review text */}
-              <p className="text-gray-600 mb-6 italic leading-relaxed">"{review.text}"</p>
+              <p className="text-gray-600 mb-6 italic leading-relaxed">&ldquo;{review.text}&rdquo;</p>
               
               {/* Patient info */}
               <div className="border-t border-gray-100 pt-6">

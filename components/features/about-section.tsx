@@ -112,7 +112,7 @@ export function AboutSection() {
             <motion.div variants={itemVariants}>
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-brand-turquoise/10 to-brand-magenta/10 rounded-full px-6 py-2 mb-6">
                 <Heart className="w-4 h-4 text-brand-magenta" />
-                <span className="text-brand-text font-medium">About St Mary's House</span>
+                <span className="text-brand-text font-medium">About St Mary’s House</span>
               </div>
 
               <h2 className="text-content-headline font-bold text-brand-text mb-6">
@@ -123,7 +123,7 @@ export function AboutSection() {
               </h2>
 
               <p className="text-lg text-brand-muted mb-6 leading-relaxed">
-                Nestled in the heart of Shoreham-by-Sea, St Mary's House Dental Care 
+                Nestled in the heart of Shoreham-by-Sea, St Mary’s House Dental Care
                 combines the serenity of coastal living with cutting-edge dental technology. 
                 Our practice has been serving the West Sussex community for over 15 years, 
                 building lasting relationships through exceptional care and innovative treatments.
@@ -131,7 +131,7 @@ export function AboutSection() {
 
               <p className="text-lg text-brand-muted mb-8 leading-relaxed">
                 From our revolutionary 3D printed veneers to AI-powered smile simulations, 
-                we're pioneering the future of dentistry while maintaining the personal 
+                we’re pioneering the future of dentistry while maintaining the personal
                 touch that makes every visit comfortable and stress-free.
               </p>
 
@@ -168,7 +168,7 @@ export function AboutSection() {
               <div className="relative rounded-2xl overflow-hidden shadow-2xl">
                 <Image
                   src="/logos/waves-bg-2560.jpg"
-                  alt="St Mary's House Dental Care Practice"
+                  alt="St Mary’s House Dental Care Practice"
                   width={600}
                   height={400}
                   className="w-full h-auto object-cover"
@@ -280,10 +280,10 @@ export function AboutSection() {
           >
             <div className="bg-gradient-to-r from-brand-magenta to-brand-turquoise rounded-2xl p-8 text-white max-w-3xl mx-auto">
               <h3 className="text-2xl font-semibold mb-4">
-                Ready to Experience the St Mary's Difference?
+                Ready to Experience the St Mary’s Difference?
               </h3>
               <p className="text-lg opacity-90 mb-6">
-                Join our family of satisfied patients and discover why we're the 
+                Join our family of satisfied patients and discover why we’re the
                 premier choice for luxury dental care in West Sussex.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">

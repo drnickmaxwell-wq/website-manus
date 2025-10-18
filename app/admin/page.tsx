@@ -65,7 +65,7 @@ export default function AdminDashboard() {
       <div className="flex items-center justify-between">
         <div>
           <h1 className="text-3xl font-bold text-brand-text">Dashboard</h1>
-          <p className="text-gray-600 mt-1">Welcome back, Dr. Marina. Here's what's happening today.</p>
+          <p className="text-gray-600 mt-1">Welcome back, Dr. Marina. Here’s what’s happening today.</p>
         </div>
         <div className="flex items-center gap-3">
           <span className="text-sm text-gray-500">Last updated: {new Date().toLocaleTimeString()}</span>
@@ -178,7 +178,7 @@ export default function AdminDashboard() {
         <div className="lg:col-span-2">
           <LuxuryCard className="p-6">
             <div className="flex items-center justify-between mb-6">
-              <h3 className="text-lg font-semibold text-brand-text">Today's Appointments</h3>
+              <h3 className="text-lg font-semibold text-brand-text">Today’s Appointments</h3>
               <LuxuryButton variant="primary" size="sm">
                 <Calendar className="w-4 h-4 mr-2" />
                 Add New

@@ -240,7 +240,7 @@ export function ServicesSection() {
               Not Sure Which Treatment is Right for You?
             </h3>
             <p className="text-brand-muted mb-6">
-              Book a free consultation with our expert team. We'll create a personalized 
+              Book a free consultation with our expert team. We’ll create a personalized
               treatment plan using our advanced 3D imaging and AI diagnostics.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">

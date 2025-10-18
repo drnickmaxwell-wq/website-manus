@@ -44,6 +44,7 @@ export function LuxuryButton({
   ...props
 }: LuxuryButtonProps) {
   const colors = useBrandColors();
+  const { onClick, ...buttonProps } = props;
 
   const baseClasses = cn(
     'relative overflow-hidden rounded-lg font-semibold transition-all duration-300 transform',
@@ -111,9 +112,7 @@ export function LuxuryButton({
       }, 600);
     }
 
-    if (props.onClick) {
-      props.onClick(e);
-    }
+    onClick?.(e);
   };
 
   const buttonContent = (
@@ -144,7 +143,6 @@ export function LuxuryButton({
         initial="initial"
         whileHover="hover"
         whileTap="tap"
-        {...(props as any)}
       >
         {buttonContent}
       </motion.a>
@@ -159,7 +157,7 @@ export function LuxuryButton({
       whileHover="hover"
       whileTap="tap"
       onClick={handleClick}
-      {...props}
+      {...buttonProps}
     >
       {buttonContent}
     </motion.button>

@@ -60,7 +60,7 @@ export function ExactChatbot() {
                   🦷
                 </div>
                 <div>
-                  <h3 className="font-semibold">St Mary's Assistant</h3>
+                  <h3 className="font-semibold">St Mary’s Assistant</h3>
                   <p className="text-xs opacity-90">Online now</p>
                 </div>
               </div>

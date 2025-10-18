@@ -1,20 +1,31 @@
-import React from 'react';
-import { LayoutWrapper } from '@/components/layout/layout-wrapper';
-import { HeroSection } from '@/components/features/hero-section';
-import { ServicesSection } from '@/components/features/services-section';
-import { AboutSection } from '@/components/features/about-section';
-import { TestimonialsSection } from '@/components/features/testimonials-section';
-import { CTASection } from '@/components/features/cta-section';
+import HeaderGlass from "@/components/layout/Header_Glass";
+import HeroChampagne from "@/components/hero/Hero_Champagne";
+import FooterGlow from "@/components/footer/Footer_Glow";
+import { ChatProvider } from "@/contexts/ChatProvider";
+import ChatDock from "@/components/chat/ChatDock";
+import ChatOverlay from "@/components/chat/ChatOverlay";
+
+const HERO_PROPS = {
+  title: "Experience Luxury Dental Care by the Sea",
+  lead: "Quiet luxury, 3D-first dentistry in West Sussex. From same-day veneers to digital twin smile simulations, we’re 'Going the Extra Smile'.",
+  ctas: [
+    { label: "Book Consultation", href: "/contact" },
+    { label: "Watch Our Story", href: "#" },
+  ],
+};
 
 export default function Home() {
   return (
-    <LayoutWrapper>
-      <HeroSection />
-      <ServicesSection />
-      <AboutSection />
-      <TestimonialsSection />
-      <CTASection />
-    </LayoutWrapper>
+    <ChatProvider>
+      <div className="flex min-h-screen flex-col bg-[color:var(--smh-bg)] text-[color:var(--smh-text)]">
+        <HeaderGlass />
+        <main className="flex-1">
+          <HeroChampagne {...HERO_PROPS} />
+        </main>
+        <FooterGlow />
+        <ChatDock />
+        <ChatOverlay />
+      </div>
+    </ChatProvider>
   );
 }
-

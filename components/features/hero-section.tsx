@@ -187,9 +187,9 @@ export function HeroSection() {
             variants={itemVariants}
             className="text-front-subtitle text-brand-muted mb-8 leading-relaxed max-w-3xl mx-auto"
           >
-            Advanced 3D dentistry meets coastal tranquility at St Mary's House. 
-            From same-day veneers to digital twin smile simulations, we're{' '}
-            <span className="text-brand-magenta font-semibold">"Going the Extra Smile"</span> 
+            Advanced 3D dentistry meets coastal tranquility at St Mary’s House.
+            From same-day veneers to digital twin smile simulations, we’re{' '}
+            <span className="text-brand-magenta font-semibold">“Going the Extra Smile”</span>
             for every patient in Shoreham-by-Sea.
           </motion.p>
 
