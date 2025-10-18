@@ -40,7 +40,7 @@ export function ExactFooter() {
                 SMH
               </div>
               <div>
-                <h3 className="text-xl font-bold">St Mary's House</h3>
+                <h3 className="text-xl font-bold">St Mary’s House</h3>
                 <p className="text-sm opacity-90">Dental Care</p>
               </div>
             </div>
@@ -86,7 +86,7 @@ export function ExactFooter() {
               </div>
               <div>
                 <h5 className="font-semibold mb-2 flex items-center">📍 Address</h5>
-                <p className="text-sm opacity-90">1 St Mary's House, Shoreham-by-Sea, West Sussex BN43 5ZA</p>
+                <p className="text-sm opacity-90">1 St Mary’s House, Shoreham-by-Sea, West Sussex BN43 5ZA</p>
               </div>
             </div>
           </div>
@@ -155,7 +155,7 @@ export function ExactFooter() {
         {/* Copyright */}
         <div className="border-t border-white/20 pt-6 text-center">
           <p className="text-sm opacity-75">
-            © 2025 St Mary's House Dental Care. All rights reserved. | 
+            © 2025 St Mary’s House Dental Care. All rights reserved. |
             <a href="#" className="hover:text-yellow-300 transition-colors ml-1">Privacy Policy</a> | 
             <a href="#" className="hover:text-yellow-300 transition-colors ml-1">Cookie Policy</a>
           </p>

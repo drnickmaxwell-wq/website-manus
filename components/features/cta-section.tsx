@@ -122,7 +122,7 @@ export function CTASection() {
             <p className="text-xl text-brand-muted max-w-3xl mx-auto leading-relaxed mb-8">
               Experience the future of dentistry with our AI-powered 3D treatments, 
               luxury coastal setting, and award-winning patient care. Book your 
-              consultation today and discover why we're "Going the Extra Smile."
+              consultation today and discover why we’re “Going the Extra Smile.”
             </p>
 
             {/* Primary CTA */}
@@ -278,9 +278,9 @@ export function CTASection() {
                   Dental Emergency?
                 </h3>
                 
-                <p className="text-brand-muted mb-4">
-                  Don't wait - we provide 24/7 emergency dental care for urgent situations.
-                </p>
+                  <p className="text-brand-muted mb-4">
+                    Don’t wait - we provide 24/7 emergency dental care for urgent situations.
+                  </p>
                 
                 <LuxuryButton
                   variant="primary"

@@ -23,7 +23,7 @@ export function ExactHeader() {
                 SMH
               </div>
               <div>
-                <h1 className="text-2xl font-bold text-gray-900 tracking-tight">St Mary's House</h1>
+                <h1 className="text-2xl font-bold text-gray-900 tracking-tight">St Mary’s House</h1>
                 <p className="text-sm text-gray-600 font-light">Dental Care</p>
               </div>
             </div>

@@ -57,7 +57,7 @@ export function ExactLuxuryFooter() {
                 <span className="text-white font-bold text-lg">SMH</span>
               </div>
               <div>
-                <h3 className="text-2xl font-bold">St Mary's House</h3>
+                <h3 className="text-2xl font-bold">St Mary’s House</h3>
                 <p className="text-gray-400">Dental Care</p>
               </div>
             </div>
@@ -173,7 +173,7 @@ export function ExactLuxuryFooter() {
         <div className="border-t border-gray-700 pt-8">
           <div className="flex flex-col md:flex-row justify-between items-center space-y-4 md:space-y-0">
             <div className="text-gray-400 text-sm">
-              © 2024 St Mary's House Dental Care. All rights reserved.
+              © 2024 St Mary’s House Dental Care. All rights reserved.
             </div>
             
             <div className="flex items-center space-x-6">

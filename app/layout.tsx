@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Montserrat, Lora } from "next/font/google";
+import "../styles/tokens/smh-champagne-tokens.css";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SimpleChatbot } from "@/components/ai/simple-chatbot";

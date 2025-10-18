@@ -48,7 +48,7 @@ export function Chatbot({
   const [isSpeaking, setIsSpeaking] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   
-  const { messages, input, handleInputChange, handleSubmit, isLoading, error } = useChat({
+  const { messages, input, handleInputChange, handleSubmit, isLoading, error, setInput } = useChat({
     api: '/api/chat',
     initialMessages: [
       {
@@ -62,7 +62,7 @@ export function Chatbot({
   const { speak, cancel, speaking } = useSpeechSynthesis();
   const { listen, stop, supported: speechSupported } = useSpeechRecognition({
     onResult: (result: string) => {
-      handleInputChange({ target: { value: result } } as any);
+      setInput(result);
       setIsListening(false);
     },
     onError: () => {
