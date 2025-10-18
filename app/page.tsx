@@ -1,7 +1,7 @@
-import HeaderGlass from "@/components/layout/Header_Glass";
-import HeroChampagne from "@/components/hero/Hero_Champagne";
-import FooterGlow from "@/components/footer/Footer_Glow";
-import { ChatProvider } from "@/contexts/ChatProvider";
+import Header_Glass from "@/components/layout/Header_Glass";
+import Hero_Champagne from "@/components/hero/Hero_Champagne";
+import Footer_Glow from "@/components/footer/Footer_Glow";
+import { ChatProvider } from "@/app/contexts/ChatProvider";
 import ChatDock from "@/components/chat/ChatDock";
 import ChatOverlay from "@/components/chat/ChatOverlay";
 
@@ -18,11 +18,14 @@ export default function Home() {
   return (
     <ChatProvider>
       <div className="flex min-h-screen flex-col bg-[color:var(--smh-bg)] text-[color:var(--smh-text)]">
-        <HeaderGlass />
+        <Header_Glass />
+        <Hero_Champagne {...HERO_PROPS} />
         <main className="flex-1">
-          <HeroChampagne {...HERO_PROPS} />
+          <section className="mx-auto flex w-full max-w-6xl items-center justify-center px-6 py-24 text-center text-[color:var(--smh-text-muted)]">
+            <p>Additional Champagne modules will arrive here.</p>
+          </section>
         </main>
-        <FooterGlow />
+        <Footer_Glow />
         <ChatDock />
         <ChatOverlay />
       </div>

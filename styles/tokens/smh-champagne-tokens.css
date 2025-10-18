@@ -19,6 +19,7 @@
 html{color:var(--smh-text);background:var(--smh-bg);font-family:var(--font-body)}
 .smh-heading,h1,h2,h3,h4{font-family:var(--font-heading)}
 .smh-gradient-bg{background-image:var(--smh-gradient);background-size:200% 200%;animation:smhHueDrift 15s var(--motion-ease) infinite alternate}
+.smh-hero-gradient-bg{background-image:var(--smh-gradient);background-size:200% 200%;animation:smhHueDrift 15s var(--motion-ease) infinite alternate}
 .smh-gold-border{border:1px solid color-mix(in oklab,var(--smh-accent-gold) 70%,transparent);box-shadow:var(--glow-gold)}
 .smh-film-grain{pointer-events:none;background-image:url("/textures/film-grain-desktop.webp");background-size:cover;opacity:var(--film-grain-opacity);mix-blend-mode:overlay}
 .smh-particles-gold{pointer-events:none;background-image:url("/textures/particles-gold.webp");background-size:cover;opacity:var(--particles-opacity)}

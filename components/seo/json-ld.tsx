@@ -1,15 +1,4 @@
-import React from "react";
-
-interface JsonLdProps {
-  data: object;
-}
-
-export const JsonLd: React.FC<JsonLdProps> = ({ data }) => (
-  <script
-    type="application/ld+json"
-    dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
-  />
-);
+export { default as JsonLd } from "@/lib/seo/JsonLd";
 
 export const organizationSchema = {
   "@context": "https://schema.org",
@@ -30,13 +19,7 @@ export const organizationSchema = {
   openingHoursSpecification: [
     {
       "@type": "OpeningHoursSpecification",
-      dayOfWeek: [
-        "Monday",
-        "Tuesday",
-        "Wednesday",
-        "Thursday",
-        "Friday",
-      ],
+      dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
       opens: "08:00",
       closes: "18:00",
     },
@@ -53,7 +36,8 @@ export const organizationSchema = {
   ],
   priceRange: "£££",
   image: "https://smhdental.co.uk/logos/og-image.jpg",
-  description: "Luxury coastal dentistry with advanced 3D technology, AI-powered diagnostics, and same-day treatments in Shoreham-by-Sea, West Sussex.",
+  description:
+    "Luxury coastal dentistry with advanced 3D technology, AI-powered diagnostics, and same-day treatments in Shoreham-by-Sea, West Sussex.",
   hasMap: "https://goo.gl/maps/example",
   geo: {
     "@type": "GeoCoordinates",
@@ -75,5 +59,3 @@ export const organizationSchema = {
     reviewCount: "250",
   },
 };
-
-

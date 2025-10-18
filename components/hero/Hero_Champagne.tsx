@@ -7,7 +7,7 @@ import BrandButton from "@/components/brand/BrandButton";
 export type HeroCta = { label: string; href: string };
 export type HeroChampagneProps = { title: string; lead: string; ctas: HeroCta[] };
 
-export default function HeroChampagne({ title, lead, ctas }: HeroChampagneProps) {
+export default function Hero_Champagne({ title, lead, ctas }: HeroChampagneProps) {
   const [reducedMotion, setReducedMotion] = useState(false);
 
   useEffect(() => {
@@ -20,7 +20,11 @@ export default function HeroChampagne({ title, lead, ctas }: HeroChampagneProps)
   }, []);
 
   return (
-    <BrandHeroGradient className="sm:mt-10" withParticles={!reducedMotion}>
+    <BrandHeroGradient
+      className="sm:mt-10"
+      withParticles={!reducedMotion}
+      disableAnimation={reducedMotion}
+    >
       <div className="flex flex-col gap-8 py-12 sm:py-16">
         <div className="max-w-3xl space-y-5">
           <p className="text-sm font-semibold uppercase tracking-[0.2em] text-[color:var(--smh-text-muted)]">

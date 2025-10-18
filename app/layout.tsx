@@ -4,7 +4,8 @@ import "../styles/tokens/smh-champagne-tokens.css";
 import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SimpleChatbot } from "@/components/ai/simple-chatbot";
-import { JsonLd, organizationSchema } from "@/components/seo/json-ld";
+import JsonLd from "@/lib/seo/JsonLd";
+import { organizationSchema } from "@/components/seo/json-ld";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",

@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect } from "react";
-import { useChat } from "@/contexts/ChatProvider";
+import { useChat } from "@/app/contexts/ChatProvider";
 export default function ChatOverlay(){
   const { isOpen, close, pagePath, reducedMotion, theme } = useChat();
   useEffect(()=>{ if(isOpen) document.documentElement.style.overflow="hidden"; return ()=>{ document.documentElement.style.overflow=""; }; },[isOpen]);

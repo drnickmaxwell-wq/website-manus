@@ -1,6 +1,6 @@
 "use client";
 import React from "react";
-import { useChat } from "@/contexts/ChatProvider";
+import { useChat } from "@/app/contexts/ChatProvider";
 export default function ChatDock(){
   const { isOpen, toggle } = useChat();
   return (
