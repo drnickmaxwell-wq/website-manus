@@ -1,0 +1,31 @@
+/* fallback for film grain textures using radial gradient and dots */
+.smh-film-grain {
+  background-image:
+    radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%),
+    repeating-radial-gradient(circle at center, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 3px);
+  background-blend-mode: screen;
+}
+
+/* fallback for gold particles */
+.smh-particles-gold {
+  background-image:
+    radial-gradient(circle at center, rgba(255, 215, 0, 0.25) 0%, rgba(255, 215, 0, 0) 60%),
+    repeating-radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0px, rgba(255, 215, 0, 0.1) 2px, transparent 2px, transparent 6px);
+  background-blend-mode: screen;
+}
+
+/* fallback for teal particles */
+.smh-particles-teal {
+  background-image:
+    radial-gradient(circle at center, rgba(0, 201, 167, 0.25) 0%, rgba(0, 201, 167, 0) 60%),
+    repeating-radial-gradient(circle at center, rgba(0, 201, 167, 0.1) 0px, rgba(0, 201, 167, 0.1) 2px, transparent 2px, transparent 6px);
+  background-blend-mode: screen;
+}
+
+/* fallback for magenta particles */
+.smh-particles-magenta {
+  background-image:
+    radial-gradient(circle at center, rgba(221, 0, 128, 0.25) 0%, rgba(221, 0, 128, 0) 60%),
+    repeating-radial-gradient(circle at center, rgba(221, 0, 128, 0.1) 0px, rgba(221, 0, 128, 0.1) 2px, transparent 2px, transparent 6px);
+  background-blend-mode: screen;
+}
