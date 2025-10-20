@@ -18,6 +18,29 @@ export default function Home(){
         <ChatDock/>
         <ChatOverlay/>
       </main>
+            <div
+        style={{
+          height: "200px",
+          position: "relative",
+          marginTop: "1rem",
+          backgroundImage: `url('/gradients/hero-gradient-soft.webp'), url('/overlays/glow-dust.webp')`,
+          backgroundSize: "cover, cover",
+          backgroundRepeat: "no-repeat"
+        }}
+      >
+        <p
+          style={{
+            position: "absolute",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            color: "#fff",
+            fontWeight: "bold"
+          }}
+        >
+          Visual check — remove before production
+        </p>
+      </div>
     </ChatProvider>
   );
 }
