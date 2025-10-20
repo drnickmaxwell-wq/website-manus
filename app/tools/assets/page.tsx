@@ -1,5 +1,7 @@
 import React from "react";
 
+export const dynamic = "force-dynamic";
+
 const assets = [
   { label: "Film grain desktop", path: "/textures/film-grain-desktop.webp" },
   { label: "Film grain dark", path: "/textures/film-grain-dark.webp" },
