@@ -11,11 +11,12 @@ import Reviews from "@/components/sections/home/Reviews";
 import CtaRibbon from "@/components/sections/home/CtaRibbon";
 import Footer_Lux from "@/components/layout/Footer_Lux";
 import JsonLd from "@/lib/seo/JsonLd";
-export default function Home(){
+
+export default function Home() {
   return (
     <ChatProvider>
       <main>
-        <BrandHeroGradient>
+        <BrandHeroGradient className="smh-hero-gradient-bg">
           <h1 className="smh-heading text-3xl md:text-5xl mb-3">St Mary’s House Dental Care</h1>
           <p className="max-w-prose smh-text-dim mb-6">Quiet luxury, 3D-first dentistry in West Sussex.</p>
           <div className="flex gap-3">
@@ -30,6 +31,18 @@ export default function Home(){
         <Reviews />
         <CtaRibbon />
         <Footer_Lux />
+        {/* Temporary verification preview */}
+        <section className="relative py-8">
+          <div className="mx-auto w-full max-w-[var(--maxw,1200px)] px-6">
+            <div className="rounded-xl overflow-hidden h-28 relative smh-hero-gradient-bg">
+              <div aria-hidden className="absolute inset-0 smh-film-grain" />
+              <div aria-hidden className="absolute inset-0 smh-particles-gold" />
+            </div>
+            <div className="mt-3 text-sm smh-text-dim">
+              Gradient + grain + particles preview (remove later).
+            </div>
+          </div>
+        </section>
         <JsonLd
           type="LocalBusiness"
           data={{
@@ -46,32 +59,9 @@ export default function Home(){
             },
           }}
         />
-        <ChatDock/>
-        <ChatOverlay/>
+        <ChatDock />
+        <ChatOverlay />
       </main>
-            <div
-        style={{
-          height: "200px",
-          position: "relative",
-          marginTop: "1rem",
-          backgroundImage: `url('/gradients/hero-gradient-soft.webp'), url('/overlays/glow-dust.webp')`,
-          backgroundSize: "cover, cover",
-          backgroundRepeat: "no-repeat"
-        }}
-      >
-        <p
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            color: "#fff",
-            fontWeight: "bold"
-          }}
-        >
-          Visual check — remove before production
-        </p>
-      </div>
     </ChatProvider>
   );
 }

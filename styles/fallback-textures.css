@@ -1,31 +1,47 @@
-/* fallback for film grain textures using radial gradient and dots */
+/* Lightweight CSS-only fallbacks so pages still look premium if bitmaps are missing. */
+
+/* Hero gradient fallback: blend token gradient under soft bitmap so layout stays rich. */
+.smh-hero-gradient-bg {
+  background-image: url("/gradients/hero-gradient-soft.webp"), var(--smh-gradient);
+  background-size: cover, cover;
+  background-position: center;
+}
+
+/* Film grain fallback via tiny layered noise (no images). */
 .smh-film-grain {
   background-image:
-    radial-gradient(circle at center, rgba(255,255,255,0.08) 0%, rgba(255,255,255,0) 70%),
-    repeating-radial-gradient(circle at center, rgba(0,0,0,0.03) 0px, rgba(0,0,0,0.03) 1px, transparent 1px, transparent 3px);
-  background-blend-mode: screen;
+    url("/textures/film-grain-desktop.webp"),
+    radial-gradient(rgba(0, 0, 0, 0.025) 1px, transparent 1px),
+    radial-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+  background-size: cover, 3px 3px, 5px 5px;
+  background-position: center, 0 0, 1px 2px;
 }
 
-/* fallback for gold particles */
+/* Particle fallbacks: very subtle soft dots. Use sparingly. */
 .smh-particles-gold {
   background-image:
-    radial-gradient(circle at center, rgba(255, 215, 0, 0.25) 0%, rgba(255, 215, 0, 0) 60%),
-    repeating-radial-gradient(circle at center, rgba(255, 215, 0, 0.1) 0px, rgba(255, 215, 0, 0.1) 2px, transparent 2px, transparent 6px);
-  background-blend-mode: screen;
+    url("/textures/particles-gold.webp"),
+    radial-gradient(closest-side, rgba(212, 175, 55, 0.1), transparent),
+    radial-gradient(closest-side, rgba(212, 175, 55, 0.08), transparent);
+  background-size: cover, 160px 160px, 240px 240px;
+  background-position: center, 10% 20%, 80% 70%;
+  filter: saturate(1.05);
 }
 
-/* fallback for teal particles */
 .smh-particles-teal {
   background-image:
-    radial-gradient(circle at center, rgba(0, 201, 167, 0.25) 0%, rgba(0, 201, 167, 0) 60%),
-    repeating-radial-gradient(circle at center, rgba(0, 201, 167, 0.1) 0px, rgba(0, 201, 167, 0.1) 2px, transparent 2px, transparent 6px);
-  background-blend-mode: screen;
+    url("/textures/particles-teal.webp"),
+    radial-gradient(closest-side, rgba(64, 196, 180, 0.1), transparent),
+    radial-gradient(closest-side, rgba(64, 196, 180, 0.08), transparent);
+  background-size: cover, 160px 160px, 240px 240px;
+  background-position: center, 20% 30%, 70% 60%;
 }
 
-/* fallback for magenta particles */
 .smh-particles-magenta {
   background-image:
-    radial-gradient(circle at center, rgba(221, 0, 128, 0.25) 0%, rgba(221, 0, 128, 0) 60%),
-    repeating-radial-gradient(circle at center, rgba(221, 0, 128, 0.1) 0px, rgba(221, 0, 128, 0.1) 2px, transparent 2px, transparent 6px);
-  background-blend-mode: screen;
+    url("/textures/particles-magenta.webp"),
+    radial-gradient(closest-side, rgba(194, 24, 91, 0.1), transparent),
+    radial-gradient(closest-side, rgba(194, 24, 91, 0.08), transparent);
+  background-size: cover, 160px 160px, 240px 240px;
+  background-position: center, 25% 35%, 75% 65%;
 }
