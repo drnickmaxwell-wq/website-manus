@@ -1,75 +1,103 @@
 "use client";
-import Image from "next/image";
+
+// app/diagnostics/textures/page.tsx
 import React from "react";
 
-const tiles = [
-  // Gradients
-  { label: "gradient: hero-gradient-fallback", src: "/gradients/hero-gradient-fallback.webp", kind: "image" },
-  { label: "gradient: hero-gradient-fallback-dark", src: "/gradients/hero-gradient-fallback-dark.webp", kind: "image" },
-  { label: "gradient: hero-gradient-soft", src: "/gradients/hero-gradient-soft.webp", kind: "image" },
-
-  // Overlays
-  { label: "overlay: glow-dust", src: "/overlays/glow-dust.webp", kind: "image" },
-  { label: "overlay: glow-dust-dark", src: "/overlays/glow-dust-dark.webp", kind: "image" },
-  { label: "overlay: glow-dust-mobile", src: "/overlays/glow-dust-mobile.webp", kind: "image" },
-
-  // Textures (static)
-  { label: "texture: film-grain-desktop", src: "/textures/film-grain-desktop.webp", kind: "image" },
-  { label: "texture: film-grain-dark", src: "/textures/film-grain-dark.webp", kind: "image" },
-  { label: "texture: film-grain-mobile", src: "/textures/film-grain-mobile.webp", kind: "image" },
-  { label: "texture: film-grain-mobile-dark", src: "/textures/film-grain-mobile-dark.webp", kind: "image" },
-
-  { label: "texture: particles-gold", src: "/textures/particles-gold.webp", kind: "image" },
-  { label: "texture: particles-magenta", src: "/textures/particles-magenta.webp", kind: "image" },
-  { label: "texture: particles-teal", src: "/textures/particles-teal.webp", kind: "image" },
-
-  // Textures (animated webm)
-  { label: "anim: particles-gold-animated", src: "/textures/particles-gold-animated.webm", kind: "video" },
-  { label: "anim: particles-magenta-animated", src: "/textures/particles-magenta-animated.webm", kind: "video" },
-  { label: "anim: particles-teal-animated", src: "/textures/particles-teal-animated.webm", kind: "video" },
-
-  // Wave mask presence check
-  { label: "wave mask (svg)", src: "/waves/smh-wave-mask.svg", kind: "raw" },
-];
-
-export default function Page() {
+function Tile({ label, children }: { label: string; children: React.ReactNode }) {
   return (
-    <div className="min-h-screen bg-[var(--smh-bg)] text-[var(--smh-text)] p-6">
-      <h1 className="text-2xl font-semibold mb-4">SMH Asset Diagnostics</h1>
-      <p className="mb-6 text-sm opacity-80">
-        Verifies presence of gradients, overlays, film grain, particle textures, and wave mask. Animated tiles should play.
-      </p>
-
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {tiles.map((t) => (
-          <div key={t.label} className="rounded-xl border p-3 bg-white/5">
-            <div className="text-sm mb-2">{t.label}</div>
-            <div className="relative aspect-[16/10] overflow-hidden rounded-lg">
-              {t.kind === "image" && (
-                <Image src={t.src} alt={t.label} fill className="object-cover" sizes="(max-width: 768px) 100vw, 33vw" />
-              )}
-              {t.kind === "video" && (
-                <video className="w-full h-full object-cover" autoPlay loop muted playsInline src={t.src} />
-              )}
-              {t.kind === "raw" && (
-                <iframe title={t.label} className="w-full h-full" src={t.src} />
-              )}
-            </div>
-            <code className="text-xs opacity-75 mt-2 block">{t.src}</code>
-          </div>
-        ))}
-      </div>
-
-      <div className="mt-10">
-        <a
-          className="inline-flex items-center gap-2 px-4 py-2 rounded-full smh-gold-border smh-gradient-bg text-white"
-          href="/api/assets/check"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Run /api/assets/check
-        </a>
+    <div className="rounded-xl border border-white/10 p-3">
+      <div className="text-sm mb-2 opacity-80 whitespace-pre-line">{label}</div>
+      <div className="relative aspect-[4/3] rounded-lg overflow-hidden bg-black/20">
+        {children}
       </div>
     </div>
+  );
+}
+
+export default function Page() {
+  const imgs = [
+    { label: "gradient: hero-gradient-fallback", src: "/gradients/hero-gradient-fallback.webp" },
+    { label: "gradient: hero-gradient-fallback-dark", src: "/gradients/hero-gradient-fallback-dark.webp" },
+    { label: "gradient: hero-gradient-soft", src: "/gradients/hero-gradient-soft.webp" },
+
+    { label: "overlay: glow-dust", src: "/overlays/glow-dust.webp" },
+    { label: "overlay: glow-dust-dark", src: "/overlays/glow-dust-dark.webp" },
+    { label: "overlay: glow-dust-mobile", src: "/overlays/glow-dust-mobile.webp" },
+
+    { label: "texture: film-grain-desktop", src: "/textures/film-grain-desktop.webp" },
+    { label: "texture: film-grain-dark", src: "/textures/film-grain-dark.webp" },
+    { label: "texture: film-grain-mobile", src: "/textures/film-grain-mobile.webp" },
+    { label: "texture: film-grain-mobile-dark", src: "/textures/film-grain-mobile-dark.webp" },
+
+    { label: "texture: particles-gold", src: "/textures/particles-gold.webp" },
+    { label: "texture: particles-magenta", src: "/textures/particles-magenta.webp" },
+    { label: "texture: particles-teal", src: "/textures/particles-teal.webp" },
+  ];
+
+  const videos = [
+    { label: "particles-gold (animated)", src: "/textures/particles-gold-animated.webm" },
+    { label: "particles-magenta (animated)", src: "/textures/particles-magenta-animated.webm" },
+    { label: "particles-teal (animated)", src: "/textures/particles-teal-animated.webm" },
+  ];
+
+  return (
+    <main className="min-h-screen px-6 py-10 max-w-6xl mx-auto space-y-8">
+      <h1 className="text-3xl font-semibold">SMH Asset Diagnostics</h1>
+      <p className="opacity-80">
+        Verifies gradients/overlays/film-grain/static particle textures (.webp) and animated particles (.webm). Videos should auto-play.
+      </p>
+
+      <section>
+        <h2 className="text-xl mb-4">Images (.webp)</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {imgs.map(({ label, src }) => (
+            <Tile key={label} label={`${label}\n${src}`}>
+              <img
+                src={src}
+                alt={label}
+                className="w-full h-full object-cover"
+                loading="eager"
+                onError={(e) => ((e.currentTarget as HTMLImageElement).style.opacity = "0.25")}
+              />
+            </Tile>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-xl mb-4">Animated Particles (.webm)</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          {videos.map(({ label, src }) => (
+            <Tile key={label} label={`${label}\n${src}`}>
+              <video
+                src={src}
+                className="w-full h-full object-cover"
+                autoPlay
+                loop
+                muted
+                playsInline
+              />
+            </Tile>
+          ))}
+        </div>
+      </section>
+
+      <section>
+        <h2 className="text-xl mb-4">Wave Mask (SVG present)</h2>
+        <Tile label="/waves/smh-wave-mask.svg">
+          <div className="w-full h-full smh-gradient-bg"
+               style={{
+                 WebkitMaskImage: 'url("/waves/smh-wave-mask.svg")',
+                 maskImage: 'url("/waves/smh-wave-mask.svg")',
+                 WebkitMaskRepeat: 'no-repeat',
+                 maskRepeat: 'no-repeat',
+                 WebkitMaskPosition: 'center',
+                 maskPosition: 'center',
+                 WebkitMaskSize: 'contain',
+                 maskSize: 'contain',
+               }}/>
+        </Tile>
+      </section>
+    </main>
   );
 }
