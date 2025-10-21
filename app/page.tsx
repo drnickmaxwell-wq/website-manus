@@ -17,7 +17,7 @@ export default function Home() {
     <ChatProvider>
       <main>
         <VideoHero />
-        {/* Example: champagne wave CTA ribbon */}
+        {/* Champagne wave CTA ribbon */}
         <WaveHighlight particles="gold" />
         <Why3D />
         <Technology />
@@ -29,12 +29,12 @@ export default function Home() {
         <JsonLd
           type="LocalBusiness"
           data={{
-            name: "St Mary's House Dental Care",
+            name: "St Mary’s House Dental Care",
             url: "https://smhdental.co.uk",
             telephone: "+44 1273 453109",
             address: {
               "@type": "PostalAddress",
-              streetAddress: "St Mary's Road",
+              streetAddress: "St Mary’s Road",
               addressLocality: "Shoreham-by-Sea",
               addressRegion: "West Sussex",
               postalCode: "BN43 5ZA",
@@ -42,9 +42,9 @@ export default function Home() {
             },
           }}
         />
-        <ChatDock />
-        <ChatOverlay />
       </main>
+      <ChatDock />
+      <ChatOverlay />
     </ChatProvider>
   );
 }
