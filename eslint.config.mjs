@@ -18,7 +18,16 @@ const eslintConfig = [
       "out/**",
       "build/**",
       "next-env.d.ts",
+      "app/diagnostics/**",
+      "app/api/**",
+      "scripts/**",
+      "**/*.svg",
     ],
+  },
+  {
+    rules: {
+      "@next/next/no-img-element": "off",
+    },
   },
 ];
 

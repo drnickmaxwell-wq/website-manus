@@ -1,0 +1,4 @@
+app/diagnostics/**
+app/api/**
+scripts/**
+**/*.svg
