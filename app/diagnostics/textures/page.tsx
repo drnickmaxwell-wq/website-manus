@@ -2,9 +2,15 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { ReactNode, useMemo, useState } from "react";
+import { ReactNode, useEffect, useMemo, useState } from "react";
+import ParticlesLayer from "@/components/effects/ParticlesLayer";
 
-type Tile = { label: string; href: string; kind: "img" | "svg" | "webm" };
+type Tile = {
+  label: string;
+  href: string;
+  kind: "img" | "svg" | "webm";
+  variant?: "gold" | "magenta" | "teal";
+};
 
 const IMGS: Tile[] = [
   { label: "gradient hero-gradient-fallback", href: "/gradients/hero-gradient-fallback.webp", kind: "img" },
@@ -24,9 +30,24 @@ const IMGS: Tile[] = [
 ];
 
 const VIDS: Tile[] = [
-  { label: "particles gold (animated)", href: "/textures/particles-gold-animated.webm", kind: "webm" },
-  { label: "particles magenta (animated)", href: "/textures/particles-magenta-animated.webm", kind: "webm" },
-  { label: "particles teal (animated)", href: "/textures/particles-teal-animated.webm", kind: "webm" },
+  {
+    label: "particles gold (animated)",
+    href: "/textures/particles-gold-animated.webm",
+    kind: "webm",
+    variant: "gold",
+  },
+  {
+    label: "particles magenta (animated)",
+    href: "/textures/particles-magenta-animated.webm",
+    kind: "webm",
+    variant: "magenta",
+  },
+  {
+    label: "particles teal (animated)",
+    href: "/textures/particles-teal-animated.webm",
+    kind: "webm",
+    variant: "teal",
+  },
 ];
 
 function Card({ children, title, sub, aspectClass = "aspect-[4/3]" }: { children: ReactNode; title: string; sub: string; aspectClass?: string }) {
@@ -70,21 +91,51 @@ function ImageTile({ tile }: { tile: Tile }) {
 }
 
 function VideoTile({ tile }: { tile: Tile }) {
-  const [ok, setOk] = useState(true);
+  const [hasVideo, setHasVideo] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    let active = true;
+
+    async function probe() {
+      try {
+        const res = await fetch(tile.href, { method: "HEAD" });
+        if (!active) return;
+        setHasVideo(res.ok);
+      } catch (error) {
+        if (!active) return;
+        setHasVideo(false);
+      }
+    }
+
+    probe();
+
+    return () => {
+      active = false;
+    };
+  }, [tile.href]);
+
   return (
     <Card title={tile.label} sub={tile.href} aspectClass="aspect-video">
-      {ok ? (
+      {hasVideo === false ? (
+        <div className="relative h-full w-full overflow-hidden rounded-xl bg-neutral-900">
+          <ParticlesLayer variant={tile.variant ?? "gold"} className="pointer-events-none" />
+          <div className="absolute inset-x-0 bottom-3 flex justify-center">
+            <span className="rounded-full bg-black/60 px-3 py-1 text-[11px] uppercase tracking-wide text-neutral-200">
+              CSS particles demo
+            </span>
+          </div>
+        </div>
+      ) : (
         <video
+          key={tile.href}
           src={tile.href}
           className="h-full w-full object-cover"
           muted
           playsInline
           loop
           autoPlay
-          onError={() => setOk(false)}
+          onError={() => setHasVideo(false)}
         />
-      ) : (
-        <div className="px-3 text-center text-sm text-red-400">video failed to load: {tile.href}</div>
       )}
     </Card>
   );

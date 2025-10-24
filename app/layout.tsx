@@ -4,6 +4,7 @@ import "../styles/tokens/smh-particles-drift.css";
 import "../styles/fallback-textures.css";
 import "./globals.css";
 import "@/styles/particles-drift.css";
+import "@/styles/champagne-particles.css";
 import { Playfair_Display, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SimpleChatbot } from "@/components/ai/simple-chatbot";
