@@ -11,7 +11,9 @@
 import React, { useState, useRef, useEffect } from 'react';
 import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
-import { TREATMENT_GROUPS } from '@/components/treatments/groups';
+import { buildTreatmentMenu } from '@/content/treatments';
+
+const MENU_GROUPS = buildTreatmentMenu();
 
 /**
  * TreatmentsMenu renders a disclosure style mega‑menu for the "Treatments" nav item.
@@ -74,21 +76,17 @@ export default function TreatmentsMenu() {
             aria-label="Treatments submenu"
           >
             <div className="grid grid-cols-2 gap-6 sm:grid-cols-3 lg:grid-cols-4">
-              {Object.entries(TREATMENT_GROUPS).map(([key, group]) => (
-                <div key={key} className="min-w-[140px]">
-                  <div className="uppercase text-xs font-semibold mb-2 shimmer-text">
-                    {group.title}
-                  </div>
+              {MENU_GROUPS.map((group) => (
+                <div key={group.key} className="min-w-[140px]">
+                  <div className="uppercase text-xs font-semibold mb-2 shimmer-text">{group.title}</div>
                   <ul className="space-y-1">
                     {group.items.map((leaf) => (
                       <li key={leaf.slug}>
                         <Link
-                          href={`/treatments/${key}/${leaf.slug}`}
+                          href={leaf.href}
                           className="block text-sm gradient-text lux-gold-flash px-1 py-0.5"
-                          // When a link is clicked we close the panel automatically
                           onClick={() => setOpen(false)}
                           onMouseLeave={(e) => {
-                            // restore gradient after hover ends
                             const el = e.currentTarget as HTMLElement;
                             el.classList.remove('text-brand-gold');
                           }}

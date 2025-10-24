@@ -62,6 +62,8 @@ export async function GET() {
     report[key] = { ok: details.every(d => d.size > 0), count: details.length, byExt: details };
   }
 
+  const animatedPresence: Record<string, boolean> = {};
+
   for (const [key, arr] of Object.entries(optionalGroups)) {
     const details = arr.map((rel) => {
       const full = path.join(ROOT, 'public', rel.replace(/^\/+/, ''));

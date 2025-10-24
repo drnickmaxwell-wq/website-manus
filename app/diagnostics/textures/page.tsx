@@ -7,6 +7,8 @@ type AssetGroup = {
   description?: string;
   items: AssetDescriptor[];
 };
+import { ReactNode, useEffect, useMemo, useState } from "react";
+import ParticlesLayer from '@/components/brand/ParticlesLayer';
 
 type AssetDescriptor = {
   label: string;
