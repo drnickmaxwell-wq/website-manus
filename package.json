@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint --no-error-on-unmatched-pattern",
-    "postinstall": "node scripts/smh-assets-fix.js"
+    "postinstall": "node scripts/smh-assets-fix.js",
+    "gen:placeholders": "node scripts/generate-placeholders.mjs"
   },
   "dependencies": {
     "@ai-sdk/openai": "^2.0.24",

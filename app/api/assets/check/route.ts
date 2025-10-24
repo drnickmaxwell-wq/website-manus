@@ -49,6 +49,8 @@ export async function GET() {
   const optionalReport: Record<string, any> = {};
   const missing: string[] = [];
   const optionalMissing: string[] = [];
+  const optionalSizes: Record<string, number> = {};
+  const placeholders: string[] = [];
 
   for (const [key, arr] of Object.entries(groups)) {
     const details = arr.map((rel) => {
@@ -65,6 +67,10 @@ export async function GET() {
       const full = path.join(ROOT, 'public', rel.replace(/^\/+/, ''));
       const size = statBytes(full);
       if (size <= 0) optionalMissing.push(rel);
+      optionalSizes[rel] = size;
+      if (size > 0 && size < 2048) {
+        placeholders.push(rel);
+      }
       return { name: path.basename(rel), size };
     });
     optionalReport[key] = {
@@ -74,5 +80,19 @@ export async function GET() {
     };
   }
 
-  return NextResponse.json({ ok: missing.length === 0, report, optionalReport, missing, optionalMissing });
+  const goldSize = optionalSizes['/textures/particles-gold-animated.webm'] ?? 0;
+  const magentaSize = optionalSizes['/textures/particles-magenta-animated.webm'] ?? 0;
+  const tealSize = optionalSizes['/textures/particles-teal-animated.webm'] ?? 0;
+
+  return NextResponse.json({
+    ok: missing.length === 0,
+    report,
+    optionalReport,
+    missing,
+    optionalMissing,
+    hasGoldWebm: goldSize > 2048,
+    hasMagentaWebm: magentaSize > 2048,
+    hasTealWebm: tealSize > 2048,
+    placeholders,
+  });
 }
