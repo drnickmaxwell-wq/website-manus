@@ -1,0 +1,65 @@
+
+/* =====================================================================
+   SMH Champagne — Particle Drift Classes (CSS-only motion)
+   ===================================================================== */
+
+@keyframes smhDriftDiag {
+  from { background-position: 0 0; }
+  to   { background-position: 700px 350px; }
+}
+@keyframes smhDriftSlow {
+  from { background-position: 0 0; }
+  to   { background-position: 420px 210px; }
+}
+
+.smh-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.smh-film-grain {
+  background-image: url("/textures/film-grain-desktop.webp");
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: overlay;
+  opacity: .10;
+}
+@media (prefers-color-scheme: dark) {
+  .smh-film-grain { background-image: url("/textures/film-grain-dark.webp"); opacity: .08; }
+}
+@media (max-width: 640px) {
+  .smh-film-grain { background-image: url("/textures/film-grain-mobile.webp"); }
+}
+
+.smh-particles {
+  background-size: 700px 700px;
+  background-repeat: repeat;
+  mix-blend-mode: screen;      /* try 'plus-lighter' on Safari 17+ */
+  opacity: .10;                /* tune per section */
+  animation: smhDriftDiag 40s linear infinite;
+}
+.smh-particles.slow { animation: smhDriftSlow 60s linear infinite; }
+
+.smh-particles.gold    { background-image: url("/textures/particles-gold.webp"); }
+.smh-particles.magenta { background-image: url("/textures/particles-magenta.webp"); }
+.smh-particles.teal    { background-image: url("/textures/particles-teal.webp"); }
+
+@media (prefers-reduced-motion: reduce) {
+  .smh-particles { animation: none; opacity: .08; }
+}
+
+/* Optional overlay sparkle */
+.smh-glow-dust {
+  background-image: url("/overlays/glow-dust.webp");
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: overlay;
+  opacity: .08;
+}
+@media (prefers-color-scheme: dark) {
+  .smh-glow-dust { background-image: url("/overlays/glow-dust-dark.webp"); opacity: .06; }
+}
+@media (max-width: 640px) {
+  .smh-glow-dust { background-image: url("/overlays/glow-dust-mobile.webp"); }
+}
