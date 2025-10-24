@@ -29,9 +29,39 @@ export const metadata: Metadata = {
     "Luxury dental care with advanced 3D planning and patient-first experience.",
 };
 
-export default function RootLayout({
+async function shouldExposeWebmMeta() {
+  if (typeof window !== "undefined") {
+    return false;
+  }
+
+  try {
+    const fs = await import("node:fs");
+    const path = await import("node:path");
+    const candidates = [
+      "/textures/particles-gold-animated.webm",
+      "/textures/particles-magenta-animated.webm",
+      "/textures/particles-teal-animated.webm",
+    ];
+    const base = process.cwd();
+    return candidates.some((rel) => {
+      const full = path.join(base, "public", rel.replace(/^\/+/, ""));
+      try {
+        const stats = fs.statSync(full);
+        return stats.size > 2048;
+      } catch {
+        return false;
+      }
+    });
+  } catch {
+    return false;
+  }
+}
+
+export default async function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
+  const exposeWebmMeta = await shouldExposeWebmMeta();
+
   return (
     <html lang="en" className={`scroll-smooth ${playfair.variable} ${inter.variable}`}>
       <head>
@@ -51,6 +81,7 @@ export default function RootLayout({
 
         {/* Preloads */}
         <link rel="preload" as="image" href="/videos/hero/hero-poster.jpg" />
+        {exposeWebmMeta ? <meta name="smh-has-webm" content="1" /> : null}
       </head>
 
       <body className="antialiased min-h-screen bg-background text-foreground">
