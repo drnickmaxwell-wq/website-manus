@@ -12,8 +12,24 @@
   0%   { transform: translate3d(0,0,0); }
   100% { transform: translate3d(-4%, -2%, 0); }
 }
+
+.champagne-drift {
+  animation: champagne-pan 24s linear infinite;
+  will-change: transform, background-position;
+}
+
+@keyframes champagne-pan {
+  0%   { transform: translate3d(0,0,0) scale(1); }
+  50%  { transform: translate3d(0,-1.5%,0) scale(1.01); }
+  100% { transform: translate3d(0,0,0) scale(1); }
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .particles-drift, .particles-drift--slow, .particles-drift--med, .particles-drift--fast {
+  .particles-drift,
+  .particles-drift--slow,
+  .particles-drift--med,
+  .particles-drift--fast,
+  .champagne-drift {
     animation: none !important;
   }
 }

@@ -22,10 +22,8 @@ export default function Home() {
         {/* Hero video with gradient fallback (component already in repo) */}
         <VideoHero />
 
-        {/* Champagne wave CTA ribbon (gold particles) */}
-        <WaveHighlight particles="gold">
-          {/* optional headline/cta/content or leave empty for pure band */}
-        </WaveHighlight>
+        {/* Champagne wave CTA ribbon */}
+        <WaveHighlight />
 
         <Why3D />
         <Technology />
