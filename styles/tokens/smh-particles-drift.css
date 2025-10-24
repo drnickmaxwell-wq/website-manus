@@ -37,6 +37,7 @@
   background-repeat: repeat;
   mix-blend-mode: screen;      /* try 'plus-lighter' on Safari 17+ */
   opacity: .10;                /* tune per section */
+  will-change: background-position;
   animation: smhDriftDiag 40s linear infinite;
 }
 .smh-particles.slow { animation: smhDriftSlow 60s linear infinite; }
