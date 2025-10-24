@@ -11,11 +11,8 @@ const groups = {
     '/textures/film-grain-mobile.webp',
     '/textures/film-grain-mobile-dark.webp',
     '/textures/particles-gold.webp',
-    '/textures/particles-gold-animated.webm',
     '/textures/particles-magenta.webp',
-    '/textures/particles-magenta-animated.webm',
     '/textures/particles-teal.webp',
-    '/textures/particles-teal-animated.webm',
   ],
   overlays: [
     '/overlays/glow-dust.webp',
@@ -30,6 +27,14 @@ const groups = {
   waves: ['/waves/smh-wave-mask.svg'],
 };
 
+const optionalGroups = {
+  animated: [
+    '/textures/particles-gold-animated.webm',
+    '/textures/particles-magenta-animated.webm',
+    '/textures/particles-teal-animated.webm',
+  ],
+};
+
 function statBytes(p: string) {
   try {
     const s = fs.statSync(p);
@@ -40,8 +45,10 @@ function statBytes(p: string) {
 }
 
 export async function GET() {
-  const report: any = {};
+  const report: Record<string, any> = {};
+  const optionalReport: Record<string, any> = {};
   const missing: string[] = [];
+  const optionalMissing: string[] = [];
 
   for (const [key, arr] of Object.entries(groups)) {
     const details = arr.map((rel) => {
@@ -53,5 +60,19 @@ export async function GET() {
     report[key] = { ok: details.every(d => d.size > 0), count: details.length, byExt: details };
   }
 
-  return NextResponse.json({ ok: missing.length === 0, report, missing });
+  for (const [key, arr] of Object.entries(optionalGroups)) {
+    const details = arr.map((rel) => {
+      const full = path.join(ROOT, 'public', rel.replace(/^\/+/, ''));
+      const size = statBytes(full);
+      if (size <= 0) optionalMissing.push(rel);
+      return { name: path.basename(rel), size };
+    });
+    optionalReport[key] = {
+      ok: details.every(d => d.size > 0),
+      count: details.length,
+      byExt: details,
+    };
+  }
+
+  return NextResponse.json({ ok: missing.length === 0, report, optionalReport, missing, optionalMissing });
 }

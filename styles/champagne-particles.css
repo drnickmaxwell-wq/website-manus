@@ -1,0 +1,73 @@
+/* CSS particles — text-only, GPU friendly, themable via data-variant */
+:root {
+  --champagne-gold: #E3BF49;
+  --champagne-magenta: #E4117F;
+  --champagne-teal: #15C1B6;
+}
+
+/* container */
+.champagne-layer {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+/* film grain layer using SVG (text asset) */
+.film-grain {
+  position: absolute;
+  inset: 0;
+  background-image: url("/textures/film-grain.svg");
+  background-size: cover;
+  mix-blend-mode: overlay;
+  opacity: 0.55;
+}
+
+/* dark variant toggled by .is-dark parent if desired */
+.is-dark .film-grain {
+  background-image: url("/textures/film-grain-dark.svg");
+  opacity: 0.65;
+}
+
+/* particles — generated with multiple radial-gradients */
+.particles {
+  position: absolute;
+  inset: 0;
+  --dot: var(--champagne-gold);
+  background-image:
+    radial-gradient(circle at 20% 30%, var(--dot) 0, var(--dot) 2px, transparent 3px),
+    radial-gradient(circle at 60% 70%, var(--dot) 0, var(--dot) 3px, transparent 4px),
+    radial-gradient(circle at 80% 40%, var(--dot) 0, var(--dot) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 35% 80%, var(--dot) 0, var(--dot) 2.5px, transparent 3.5px),
+    radial-gradient(circle at 10% 60%, var(--dot) 0, var(--dot) 1.5px, transparent 2.5px),
+    radial-gradient(circle at 90% 20%, var(--dot) 0, var(--dot) 2px, transparent 3px);
+  background-size: 100% 100%;
+  opacity: 0.9;
+  animation: champagne-float 28s linear infinite;
+  will-change: transform, background-position;
+}
+
+@keyframes champagne-float {
+  0% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(0, -2%, 0) scale(1.01);
+  }
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+}
+
+/* variants */
+.particles[data-variant="gold"] {
+  --dot: var(--champagne-gold);
+}
+
+.particles[data-variant="magenta"] {
+  --dot: var(--champagne-magenta);
+}
+
+.particles[data-variant="teal"] {
+  --dot: var(--champagne-teal);
+}
