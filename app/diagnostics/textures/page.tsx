@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ReactNode, useEffect, useMemo, useState } from "react";
-import ParticlesLayer from "@/components/effects/ParticlesLayer";
+import ParticlesLayer from '@/components/brand/ParticlesLayer';
 
 type Tile = {
   label: string;

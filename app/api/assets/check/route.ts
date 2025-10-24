@@ -60,11 +60,17 @@ export async function GET() {
     report[key] = { ok: details.every(d => d.size > 0), count: details.length, byExt: details };
   }
 
+  const animatedPresence: Record<string, boolean> = {};
+
   for (const [key, arr] of Object.entries(optionalGroups)) {
     const details = arr.map((rel) => {
       const full = path.join(ROOT, 'public', rel.replace(/^\/+/, ''));
       const size = statBytes(full);
       if (size <= 0) optionalMissing.push(rel);
+      const name = path.basename(rel).replace('-animated.webm', '').replace('particles-', '');
+      if (key === 'animated') {
+        animatedPresence[name] = size > 0;
+      }
       return { name: path.basename(rel), size };
     });
     optionalReport[key] = {
@@ -74,5 +80,12 @@ export async function GET() {
     };
   }
 
-  return NextResponse.json({ ok: missing.length === 0, report, optionalReport, missing, optionalMissing });
+  return NextResponse.json({
+    ok: missing.length === 0,
+    report,
+    optionalReport,
+    missing,
+    optionalMissing,
+    animatedPresence,
+  });
 }

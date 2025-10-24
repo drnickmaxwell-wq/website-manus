@@ -8,13 +8,16 @@ import { Menu, X, Phone, Mail, MapPin, Clock } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import TreatmentsMenu from '@/components/nav/TreatmentsMenu';
 import { useBrandColors } from '@/components/providers/theme-provider';
-import { TREATMENT_GROUPS } from '@/components/treatments/groups';
+import { buildTreatmentMenu } from '@/content/treatments';
 
 type NavItem = {
   name: string;
   href: string;
-  submenu?: { name: string; href: string }[];
+  submenu?: { name: string; href: string; category?: string }[];
 };
+
+const treatmentMenuGroups = buildTreatmentMenu();
+const treatmentMenuMap = Object.fromEntries(treatmentMenuGroups.map((group) => [group.key, group]));
 
 const navigationItems: NavItem[] = [
   { name: 'Home', href: '/' },
@@ -22,14 +25,11 @@ const navigationItems: NavItem[] = [
   {
     name: 'Treatments',
     href: '/treatments',
-    submenu: [
-      { name: 'General Dentistry', href: '/treatments/general' },
-      { name: 'Cosmetic Dentistry', href: '/treatments/cosmetic' },
-      { name: '3D Dentistry', href: '/treatments/3d-dentistry' },
-      { name: 'Orthodontics', href: '/treatments/orthodontics' },
-      { name: 'Implants', href: '/treatments/implants' },
-      { name: 'Technology', href: '/treatments/technology' },
-    ],
+    submenu: treatmentMenuGroups.map((group) => ({
+      name: group.title,
+      href: `/treatments/${group.key}`,
+      category: group.key,
+    })),
   },
   { name: 'Fees & Plans', href: '/fees' },
   { name: 'Patient Info', href: '/patient-info' },
@@ -186,12 +186,12 @@ export function Header() {
                             {mobileTreatmentsOpen && (
                               <motion.div initial={{ height: 0, opacity: 0 }} animate={{ height: 'auto', opacity: 1 }} exit={{ height: 0, opacity: 0 }} transition={{ duration: 0.2 }} className="ml-2 pl-2 border-l border-gray-100">
                                 {item.submenu!.map((sub) => {
-                                  const key = sub.href.split('/').pop() as keyof typeof TREATMENT_GROUPS;
-                                  const group = TREATMENT_GROUPS[key];
+                                  const key = (sub.category ?? sub.href.split('/').pop() ?? '') as string;
+                                  const group = treatmentMenuMap[key];
                                   const open = mobileOpenSubGroup === key;
 
                                   return (
-                                    <div key={sub.href} className="mb-2">
+                                    <div key={`${item.name}-${sub.name}`} className="mb-2">
                                       <button
                                         type="button"
                                         aria-expanded={open}
@@ -208,7 +208,7 @@ export function Header() {
                                             {group.items.map((leaf) => (
                                               <li key={leaf.slug}>
                                                 <Link
-                                                  href={`/treatments/${key}/${leaf.slug}`}
+                                                  href={leaf.href}
                                                   onClick={() => setIsMobileMenuOpen(false)}
                                                   className="block text-xs px-2 py-1 rounded-md gradient-text lux-gold-flash"
                                                 >

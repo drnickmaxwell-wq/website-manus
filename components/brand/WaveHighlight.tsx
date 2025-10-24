@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import ParticlesLayer from "@/components/effects/ParticlesLayer";
+import ParticlesLayer from '@/components/brand/ParticlesLayer';
 
 export default function WaveHighlight() {
   return (
@@ -16,7 +16,7 @@ export default function WaveHighlight() {
         priority
       />
       {/* particles + grain */}
-      <ParticlesLayer variant="gold" />
+      <ParticlesLayer variant="gold" mode="auto" />
       {/* mask band */}
       <div
         className="absolute inset-x-0 bottom-0 h-[240px] sm:h-[320px] pointer-events-none"
