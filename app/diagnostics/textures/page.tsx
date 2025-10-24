@@ -1,355 +1,95 @@
-import fs from "node:fs";
-import path from "node:path";
-import React from "react";
-
-type MediaTileData = {
-  label: string;
-  src: string;
-  kind: "image" | "video";
-  isSvg?: boolean;
-};
-
-type ReplacementRecord = {
-  target: string;
-  source: string;
-};
-
-const IMAGE_TILES: MediaTileData[] = [
-  { label: "gradient hero-gradient-fallback", src: "/gradients/hero-gradient-fallback.webp", kind: "image" },
-  { label: "gradient hero-gradient-fallback-dark", src: "/gradients/hero-gradient-fallback-dark.webp", kind: "image" },
-  { label: "gradient hero-gradient-soft", src: "/gradients/hero-gradient-soft.webp", kind: "image" },
-  { label: "overlay glow-dust", src: "/overlays/glow-dust.webp", kind: "image" },
-  { label: "overlay glow-dust-dark", src: "/overlays/glow-dust-dark.webp", kind: "image" },
-  { label: "overlay glow-dust-mobile", src: "/overlays/glow-dust-mobile.webp", kind: "image" },
-  { label: "texture film-grain-desktop", src: "/textures/film-grain-desktop.webp", kind: "image" },
-  { label: "texture film-grain-dark", src: "/textures/film-grain-dark.webp", kind: "image" },
-  { label: "texture film-grain-mobile", src: "/textures/film-grain-mobile.webp", kind: "image" },
-  { label: "texture film-grain-mobile-dark", src: "/textures/film-grain-mobile-dark.webp", kind: "image" },
-  { label: "particles gold (static)", src: "/textures/particles-gold.webp", kind: "image" },
-  { label: "particles magenta (static)", src: "/textures/particles-magenta.webp", kind: "image" },
-  { label: "particles teal (static)", src: "/textures/particles-teal.webp", kind: "image" },
-  { label: "wave mask SVG", src: "/waves/smh-wave-mask.svg", kind: "image", isSvg: true },
+const IMGS = [
+  ['/gradients/hero-gradient-fallback.webp', 'gradient hero-gradient-fallback'],
+  ['/gradients/hero-gradient-fallback-dark.webp', 'gradient hero-gradient-fallback-dark'],
+  ['/gradients/hero-gradient-soft.webp', 'gradient hero-gradient-soft'],
+  ['/overlays/glow-dust.webp', 'overlay glow-dust'],
+  ['/overlays/glow-dust-dark.webp', 'overlay glow-dust-dark'],
+  ['/overlays/glow-dust-mobile.webp', 'overlay glow-dust-mobile'],
+  ['/textures/film-grain-desktop.webp', 'texture film-grain-desktop'],
+  ['/textures/film-grain-dark.webp', 'texture film-grain-dark'],
+  ['/textures/film-grain-mobile.webp', 'texture film-grain-mobile'],
+  ['/textures/film-grain-mobile-dark.webp', 'texture film-grain-mobile-dark'],
+  ['/textures/particles-gold.webp', 'particles gold (static)'],
+  ['/textures/particles-magenta.webp', 'particles magenta (static)'],
+  ['/textures/particles-teal.webp', 'particles teal (static)'],
+  ['/waves/smh-wave-mask.svg', 'wave mask SVG'],
 ];
 
-const VIDEO_TILES: MediaTileData[] = [
-  { label: "particles gold (animated)", src: "/textures/particles-gold-animated.webm", kind: "video" },
-  { label: "particles magenta (animated)", src: "/textures/particles-magenta-animated.webm", kind: "video" },
-  { label: "particles teal (animated)", src: "/textures/particles-teal-animated.webm", kind: "video" },
+const VIDS = [
+  ['/textures/particles-gold-animated.webm', 'particles gold (animated)'],
+  ['/textures/particles-magenta-animated.webm', 'particles magenta (animated)'],
+  ['/textures/particles-teal-animated.webm', 'particles teal (animated)'],
 ];
 
-const PUBLIC_DIR = path.join(process.cwd(), "public");
-const CORRUPT_SIZE_THRESHOLD = 5 * 1024; // 5 KB
-
-function statIfExists(filePath: string) {
-  try {
-    return fs.statSync(filePath);
-  } catch {
-    return null;
-  }
-}
-
-function ensureDarkGrainIntegrity(): ReplacementRecord[] {
-  if (typeof window !== "undefined") {
-    return [];
-  }
-
-  const replacements: ReplacementRecord[] = [];
-
-  const candidates: { target: string; alternates: string[] }[] = [
-    {
-      target: "/textures/film-grain-dark.webp",
-      alternates: [
-        "/film-grain-dark-desktop.webp",
-        "/film-grain-dark-mobile.webp",
-        "/textures/film-grain-dark-desktop.webp",
-        "/textures/film-grain-dark-mobile.webp",
-      ],
-    },
-    {
-      target: "/textures/film-grain-mobile-dark.webp",
-      alternates: [
-        "/film-grain-dark-mobile.webp",
-        "/film-grain-dark-desktop.webp",
-        "/textures/film-grain-dark-mobile.webp",
-        "/textures/film-grain-dark-desktop.webp",
-      ],
-    },
-  ];
-
-  for (const { target, alternates } of candidates) {
-    const targetAbs = path.join(PUBLIC_DIR, target.replace(/^\/+/, ""));
-    const targetStat = statIfExists(targetAbs);
-    if (!targetStat || !targetStat.isFile() || targetStat.size >= CORRUPT_SIZE_THRESHOLD) {
-      continue;
-    }
-
-    let chosen: { rel: string; abs: string; size: number } | null = null;
-
-    for (const alt of alternates) {
-      if (alt === target) continue;
-      const altAbs = path.join(PUBLIC_DIR, alt.replace(/^\/+/, ""));
-      const altStat = statIfExists(altAbs);
-      if (!altStat || !altStat.isFile()) continue;
-      if (altStat.size <= targetStat.size || altStat.size < CORRUPT_SIZE_THRESHOLD) continue;
-      if (!chosen || altStat.size > chosen.size) {
-        chosen = { rel: alt, abs: altAbs, size: altStat.size };
-      }
-    }
-
-    if (chosen) {
-      fs.copyFileSync(chosen.abs, targetAbs);
-      console.log(`[diagnostics] swapped ${target} <- ${chosen.rel}`);
-      replacements.push({ target, source: chosen.rel });
-    }
-  }
-
-  return replacements;
-}
-
-const replacementLog = ensureDarkGrainIntegrity();
+export const dynamic = 'force-static';
 
 export default function Page() {
   return (
-    <DiagnosticsClient imageTiles={IMAGE_TILES} videoTiles={VIDEO_TILES} replacements={replacementLog} />
-  );
-}
-
-function DiagnosticsClient({
-  imageTiles,
-  videoTiles,
-  replacements,
-}: {
-  imageTiles: MediaTileData[];
-  videoTiles: MediaTileData[];
-  replacements: ReplacementRecord[];
-}) {
-  "use client";
-  const jsonHref = "/api/assets/check";
-
-  return (
-    <div style={{ color: "white", background: "#0b0c0f", minHeight: "100vh", padding: "24px" }}>
-      <header style={{ display: "flex", alignItems: "center", gap: 12, justifyContent: "space-between" }}>
-        <h1 style={{ fontSize: 26, fontWeight: 700 }}>SMH Asset Diagnostics</h1>
+    <main className="mx-auto max-w-6xl p-6 space-y-8">
+      <header className="flex items-center justify-between">
+        <h1 className="text-2xl font-semibold">SMH Asset Diagnostics</h1>
         <a
-          href={jsonHref}
-          style={{
-            border: "1px solid #2d6",
-            padding: "8px 12px",
-            borderRadius: 999,
-            textDecoration: "none",
-            color: "#cfe",
-            background: "rgba(0,128,96,.12)",
-          }}
+          href="/api/assets/check"
+          className="rounded-full border border-emerald-400/40 bg-emerald-400/10 px-4 py-2 text-emerald-300 hover:bg-emerald-400/20"
         >
           Open JSON check
         </a>
       </header>
 
-      <p style={{ opacity: 0.8, marginTop: 6, marginBottom: 18 }}>
-        Images (.webp/.svg) and videos (.webm). Videos are muted/looped to guarantee autoplay.
-      </p>
-
-      {replacements.length > 0 && (
-        <div
-          style={{
-            border: "1px solid rgba(255,255,255,.1)",
-            borderRadius: 10,
-            padding: "12px 16px",
-            marginBottom: 18,
-            background: "rgba(26,50,40,.45)",
-            fontSize: 12,
-            lineHeight: 1.4,
-          }}
-        >
-          <b>Replaced dark grain assets:</b>
-          <ul style={{ margin: "6px 0 0", paddingLeft: 18 }}>
-            {replacements.map((item) => (
-              <li key={`${item.target}-${item.source}`}>
-                {item.target} &larr; {item.source}
-              </li>
-            ))}
-          </ul>
+      <section>
+        <h2 className="mb-4 text-sm font-medium tracking-wide text-white/70">IMAGES (.WEBP / .SVG)</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {IMGS.map(([src, label]) => (
+            <figure key={src} className="rounded-2xl border border-white/10 bg-black/30 p-3">
+              <figcaption className="mb-2 text-xs text-white/70">{label}<br/><span className="text-white/40">{src}</span></figcaption>
+              <div className="relative aspect-[4/3] overflow-hidden rounded-xl bg-black/40">
+                {/* Using plain <img> to dodge Next image rules on diagnostics */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img
+                  src={src}
+                  alt={label}
+                  className="absolute inset-0 h-full w-full object-cover"
+                  onError={(e) => {
+                    const box = e.currentTarget.parentElement!;
+                    box.classList.add('bg-red-900/60');
+                    e.currentTarget.replaceWith(Object.assign(document.createElement('div'), {
+                      className: 'p-3 text-sm text-red-200',
+                      innerHTML: `image failed to load: <br/>${src}`
+                    }));
+                  }}
+                />
+              </div>
+            </figure>
+          ))}
         </div>
-      )}
+      </section>
 
-      <h2 style={{ fontSize: 14, opacity: 0.8, margin: "10px 0" }}>IMAGES (.WEBP / .SVG)</h2>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: 12,
-        }}
-      >
-        {imageTiles.map(({ label, src, kind, isSvg }) => (
-          <Box key={src} title={label} sub={src}>
-            <MediaTile src={src} kind={kind} isSvg={isSvg} />
-          </Box>
-        ))}
-      </div>
-
-      <h2 style={{ fontSize: 14, opacity: 0.8, margin: "16px 0" }}>VIDEOS (.WEBM)</h2>
-      <div
-        style={{
-          display: "grid",
-          gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
-          gap: 12,
-        }}
-      >
-        {videoTiles.map(({ label, src, kind }) => (
-          <Box key={src} title={label} sub={src}>
-            <MediaTile src={src} kind={kind} />
-          </Box>
-        ))}
-      </div>
-    </div>
-  );
-}
-
-function Box({
-  children,
-  title,
-  sub,
-}: {
-  children: React.ReactNode;
-  title: string;
-  sub: string;
-}) {
-  return (
-    <div
-      style={{
-        border: "1px solid #333",
-        borderRadius: 12,
-        padding: 12,
-        background: "#111",
-        boxShadow: "0 0 0 1px rgba(255,255,255,.05) inset",
-      }}
-    >
-      <div style={{ fontSize: 12, opacity: 0.8, marginBottom: 6 }}>
-        <b>{title}</b>
-        <div style={{ opacity: 0.7 }}>{sub}</div>
-      </div>
-      <div
-        style={{
-          height: 220,
-          borderRadius: 10,
-          overflow: "hidden",
-          background: "linear-gradient(135deg,#1f1f1f,#181818)",
-        }}
-      >
-        {children}
-      </div>
-    </div>
-  );
-}
-
-function MediaTile({ src, kind, isSvg }: { src: string; kind: "image" | "video"; isSvg?: boolean }) {
-  "use client";
-  const [error, setError] = React.useState<string | null>(null);
-  const [info, setInfo] = React.useState<{ w: number; h: number } | null>(null);
-
-  const bust = typeof window === "undefined" ? "" : `?v=${new Date().toISOString().slice(0, 10)}`;
-  const srcWithBuster = `${src}${bust}`;
-
-  React.useEffect(() => {
-    if (kind !== "image") return;
-    setInfo(null);
-    setError(null);
-    const img = new Image();
-    img.onload = () => setInfo({ w: img.naturalWidth, h: img.naturalHeight });
-    img.onerror = () => setError("image failed to load");
-    img.src = srcWithBuster;
-    return () => {
-      img.onload = null;
-      img.onerror = null;
-    };
-  }, [kind, srcWithBuster]);
-
-  React.useEffect(() => {
-    if (kind === "video") {
-      setError(null);
-    }
-  }, [kind, srcWithBuster]);
-
-  const showError = (message: string) => {
-    setError(message);
-  };
-
-  if (error) {
-    return (
-      <div
-        style={{
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: "#2b1a1a",
-          color: "#ffb3b3",
-          padding: "12px",
-          textAlign: "center",
-          fontSize: 12,
-          lineHeight: 1.4,
-        }}
-      >
-        {error}: {src}
-      </div>
-    );
-  }
-
-  return (
-    <div style={{ width: "100%", height: "100%", position: "relative" }}>
-      {kind === "image" ? (
-        <img
-          src={srcWithBuster}
-          alt={src}
-          loading="eager"
-          decoding="async"
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: isSvg ? "contain" : "cover",
-            display: "block",
-          }}
-          onError={() => showError("image failed to load")}
-        />
-      ) : (
-        <video
-          key={srcWithBuster}
-          className="w-full h-full rounded-lg bg-black/30"
-          muted
-          autoPlay
-          loop
-          playsInline
-          preload="auto"
-          controls={false}
-          poster="/gradients/hero-gradient-soft.webp"
-          onError={() => {
-            if (src.includes("magenta")) {
-              console.log("MAGENTA_WEBM_DECODE_FAIL");
-            }
-            showError("video failed to load");
-          }}
-        >
-          <source src={srcWithBuster} type="video/webm" />
-        </video>
-      )}
-
-      {kind === "image" && (
-        <div
-          style={{
-            position: "absolute",
-            left: 8,
-            bottom: 8,
-            fontSize: 11,
-            opacity: 0.8,
-            background: "rgba(0,0,0,.45)",
-            padding: "4px 6px",
-            borderRadius: 6,
-            border: "1px solid rgba(255,255,255,.08)",
-          }}
-        >
-          {info ? `${info.w}×${info.h}` : "…"}
+      <section>
+        <h2 className="mb-4 text-sm font-medium tracking-wide text-white/70">VIDEOS (.WEBM)</h2>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {VIDS.map(([src, label]) => (
+            <figure key={src} className="rounded-2xl border border-white/10 bg-black/30 p-3">
+              <figcaption className="mb-2 text-xs text-white/70">{label}<br/><span className="text-white/40">{src}</span></figcaption>
+              <div className="relative aspect-video overflow-hidden rounded-xl bg-black/40">
+                <video
+                  className="absolute inset-0 h-full w-full object-cover"
+                  muted autoPlay loop playsInline preload="auto"
+                  onError={(e) => {
+                    const box = e.currentTarget.parentElement!;
+                    box.classList.add('bg-red-900/60');
+                    e.currentTarget.replaceWith(Object.assign(document.createElement('div'), {
+                      className: 'p-3 text-sm text-red-200',
+                      innerHTML: `video failed to load: <br/>${src}`
+                    }));
+                  }}
+                >
+                  <source src={src} type="video/webm" />
+                </video>
+              </div>
+            </figure>
+          ))}
         </div>
-      )}
-    </div>
+      </section>
+    </main>
   );
 }

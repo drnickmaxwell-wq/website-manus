@@ -1,64 +1,63 @@
-"use client";
-import Image from "next/image";
-import React from "react";
+// components/brand/WaveHighlight.tsx
+'use client';
 
-/**
- * WaveHighlight
- *
- * Shows the master wave image with grain + optional particles.
- *
- * Use in heroes (non-video), CTA bands, section breaks, and footers.
- */
-export default function WaveHighlight({
-  className = "",
-  dim = false,
-  particles = "gold" as "none" | "gold" | "teal" | "magenta",
-}: {
-  className?: string;
-  dim?: boolean;
-  particles?: "none" | "gold" | "teal" | "magenta";
-}) {
+import React from 'react';
+
+type Props = {
+  particles?: 'gold' | 'magenta' | 'teal';
+  children?: React.ReactNode;
+};
+
+export default function WaveHighlight({ particles = 'gold', children }: Props) {
+  const videoSrc = `/textures/particles-${particles}-animated.webm`;
+  const imgFallback = `/textures/particles-${particles}.webp`;
+
   return (
-    <section
-      className={[
-        "relative overflow-hidden smh-wave-mask",
-        "isolate", // ensure overlays stack nicely
-        className,
-      ].join(" ")}
-      aria-label="Champagne wave"
-    >
-      {/* base gradient to unify tones */}
-      <div aria-hidden className="absolute inset-0 smh-hero-gradient-bg" />
+    <section aria-label="Champagne wave highlight" className="relative my-10 md:my-16">
+      <div className="relative isolate overflow-hidden rounded-3xl ring-1 ring-white/10">
+        {/* gradient base */}
+        <div className="absolute inset-0 bg-[url('/gradients/hero-gradient-soft.webp')] bg-cover bg-center" />
 
-      {/* master wave image */}
-      <Image
-        src="/waves/hero-waves-alone.png"
-        alt=""
-        aria-hidden
-        fill
-        sizes="100vw"
-        priority={false}
-        className={[
-          "object-cover object-center",
-          dim ? "opacity-[.65]" : "opacity-95",
-        ].join(" ")}
-      />
+        {/* film grain (soft-light) */}
+        <img
+          aria-hidden
+          src="/textures/film-grain-desktop.webp"
+          className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-soft-light"
+          alt=""
+        />
 
-      {/* subtle grain always */}
-      <div aria-hidden className="absolute inset-0 smh-film-grain" />
+        {/* particles video with fallback image */}
+        <video
+          className="absolute inset-0 w-full h-full object-cover opacity-[.16] particles-drift particles-drift--slow"
+          muted
+          autoPlay
+          loop
+          playsInline
+          preload="auto"
+          onError={(e) => { (e.currentTarget as HTMLVideoElement).style.display = 'none'; }}
+        >
+          <source src={videoSrc} type="video/webm" />
+        </video>
+        <img aria-hidden src={imgFallback} className="absolute inset-0 w-full h-full object-cover opacity-25" alt="" />
 
-      {/* optional champagne particles */}
-      {particles !== "none" && (
-        <>
-          {particles === "gold" && <div aria-hidden className="absolute inset-0 smh-particles-gold" />}
-          {particles === "teal" && <div aria-hidden className="absolute inset-0 smh-particles-teal" />}
-          {particles === "magenta" && <div aria-hidden className="absolute inset-0 smh-particles-magenta" />}
-        </>
-      )}
+        {/* wave mask accent at top */}
+        <div
+          className="pointer-events-none absolute -top-px left-0 right-0 h-16"
+          style={{
+            WebkitMaskImage: 'url(/waves/smh-wave-mask.svg)',
+            maskImage: 'url(/waves/smh-wave-mask.svg)',
+            WebkitMaskRepeat: 'no-repeat',
+            maskRepeat: 'no-repeat',
+            WebkitMaskSize: 'cover',
+            maskSize: 'cover',
+            background: 'linear-gradient(90deg, rgba(255,255,255,.35), rgba(255,255,255,0))'
+          }}
+        />
 
-      {/* content slot */}
-      <div className="relative z-10 mx-auto w-full max-w-[var(--maxw,1200px)] px-6 py-16 md:py-24">
-        {/* place complementary text/cards here by composition */}
+        {/* content */}
+        <div className="relative px-6 py-12 md:px-12 md:py-20">
+          {children}
+        </div>
       </div>
     </section>
   );

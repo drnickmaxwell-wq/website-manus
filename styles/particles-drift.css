@@ -1,0 +1,19 @@
+/* styles/particles-drift.css */
+/* tiny util to give GPU hints on animated background layers */
+.particles-drift {
+  will-change: transform, opacity, background-position;
+  transform: translateZ(0);
+}
+.particles-drift--slow { animation: drift 24s linear infinite; }
+.particles-drift--med  { animation: drift 16s linear infinite; }
+.particles-drift--fast { animation: drift 10s linear infinite; }
+
+@keyframes drift {
+  0%   { transform: translate3d(0,0,0); }
+  100% { transform: translate3d(-4%, -2%, 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .particles-drift, .particles-drift--slow, .particles-drift--med, .particles-drift--fast {
+    animation: none !important;
+  }
+}

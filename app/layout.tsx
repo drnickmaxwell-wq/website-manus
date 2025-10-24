@@ -1,96 +1,38 @@
 import type { Metadata } from "next";
-import { Montserrat, Lora } from "next/font/google";
 import "../styles/tokens/smh-champagne-tokens.css";
 import "../styles/tokens/smh-particles-drift.css";
 import "../styles/fallback-textures.css";
 import "./globals.css";
+import "@/styles/particles-drift.css";
+import { Playfair_Display, Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SimpleChatbot } from "@/components/ai/simple-chatbot";
 import { JsonLd, organizationSchema } from "@/components/seo/json-ld";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const playfair = Playfair_Display({
   subsets: ["latin"],
-  weight: ["300", "400", "500", "600", "700"],
   display: "swap",
+  weight: ["400", "500", "700"],
+  variable: "--font-serif",
 });
 
-const lora = Lora({
-  variable: "--font-lora",
+const inter = Inter({
   subsets: ["latin"],
-  weight: ["400", "500", "600"],
   display: "swap",
+  variable: "--font-sans",
 });
 
 export const metadata: Metadata = {
-  title:
-    "St Mary's House Dental Care - Going the Extra Smile | Luxury Dental Shoreham-by-Sea",
+  title: "St Mary’s House Dental Care",
   description:
-    "Premium dental care at St Mary's House, Shoreham-by-Sea. Luxury treatments including AI-Powered 3D Dentistry, Same-Day Veneers, Digital Twin Smile Simulation & advanced implant restorations. Going the Extra Smile.",
-  keywords: [
-    "luxury dental clinic Shoreham-by-Sea",
-    "coastal dental care West Sussex",
-    "premium dentist",
-    "3D printed veneers",
-    "same-day veneers",
-    "dental implants",
-    "AI dentistry",
-    "digital twin smile simulation",
-    "teeth whitening",
-    "emergency dentist",
-    "dental anxiety treatment",
-  ],
-  authors: [{ name: "St Mary's House Dental Care" }],
-  creator: "St Mary's House Dental Care",
-  publisher: "St Mary's House Dental Care",
-  formatDetection: { email: false, address: false, telephone: false },
-  metadataBase: new URL(
-    process.env.NEXT_PUBLIC_SITE_URL || "https://smhdental.co.uk"
-  ),
-  alternates: { canonical: "/" },
-  openGraph: {
-    title: "St Mary's House Dental Care - Going the Extra Smile",
-    description:
-      "Experience luxury dental care by the sea in Shoreham-by-Sea, West Sussex. Advanced AI-powered 3D dentistry treatments with a personal touch.",
-    url: "/",
-    siteName: "St Mary's House Dental Care",
-    images: [
-      {
-        url: "/logos/horizontal-title-turquoise-1024.png",
-        width: 1024,
-        height: 512,
-        alt: "St Mary's House Dental Care Logo",
-      },
-    ],
-    locale: "en_GB",
-    type: "website",
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: "St Mary's House Dental Care - Going the Extra Smile",
-    description:
-      "Experience luxury dental care by the sea in Shoreham-by-Sea, West Sussex. Advanced AI-powered 3D dentistry treatments with a personal touch.",
-    images: ["/logos/horizontal-title-turquoise-1024.png"],
-  },
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  verification: { google: process.env.GOOGLE_VERIFICATION_ID },
+    "Luxury dental care with advanced 3D planning and patient-first experience.",
 };
 
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en" className={`scroll-smooth ${playfair.variable} ${inter.variable}`}>
       <head>
         {/* Favicon & manifest */}
         <link rel="icon" href="/logos/flower-32.png" sizes="32x32" />
@@ -110,9 +52,7 @@ export default function RootLayout({
         <link rel="preload" as="image" href="/videos/hero/hero-poster.jpg" />
       </head>
 
-      <body
-        className={`${montserrat.variable} ${lora.variable} antialiased min-h-screen bg-background text-foreground`}
-      >
+      <body className="antialiased min-h-screen bg-background text-foreground">
         <JsonLd data={organizationSchema} />
         <ThemeProvider>
           {children}
