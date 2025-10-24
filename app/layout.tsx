@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import { Montserrat, Lora } from "next/font/google";
 import "../styles/tokens/smh-champagne-tokens.css";
+import "../styles/tokens/smh-particles-drift.css";
 import "../styles/fallback-textures.css";
-import "./globals.css"; "./globals.css";
+import "./globals.css";
 import { ThemeProvider } from "@/components/providers/theme-provider";
 import { SimpleChatbot } from "@/components/ai/simple-chatbot";
 import { JsonLd, organizationSchema } from "@/components/seo/json-ld";

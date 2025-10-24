@@ -1,6 +1,7 @@
 "use client";
 import React from "react";
 import GradientUnderlay from "@/components/brand/GradientUnderlay";
+import ParticlesLayer from "@/components/brand/ParticlesLayer";
 
 /**
  * VideoHero
@@ -16,7 +17,7 @@ export default function VideoHero() {
 
       {/* Grain & tiny gold twinkle to keep the luxury texture */}
       <div aria-hidden className="absolute inset-0 smh-film-grain" />
-      <div aria-hidden className="absolute inset-0 smh-particles-gold" />
+      <ParticlesLayer variant="gold" slow className="opacity-20" />
 
       {/* Video layer */}
       <div className="relative z-10 mx-auto w-full max-w-[var(--maxw,1200px)] px-6 py-16">
