@@ -1,3 +1,5 @@
+'use client';
+
 const IMGS = [
   ['/gradients/hero-gradient-fallback.webp', 'gradient hero-gradient-fallback'],
   ['/gradients/hero-gradient-fallback-dark.webp', 'gradient hero-gradient-fallback-dark'],
