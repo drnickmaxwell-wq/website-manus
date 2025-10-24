@@ -2,3 +2,4 @@ app/diagnostics/**
 app/api/**
 scripts/**
 **/*.svg
+**/*.d.ts

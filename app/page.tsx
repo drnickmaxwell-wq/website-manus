@@ -5,7 +5,7 @@ import ChatDock from "@/components/chat/ChatDock";
 import ChatOverlay from "@/components/chat/ChatOverlay";
 
 import VideoHero from "@/components/sections/home/VideoHero";
-import WaveHighlight from "@/components/sections/home/WaveHighlight";
+import WaveHighlight from "@/components/brand/WaveHighlight";
 import Why3D from "@/components/sections/home/Why3D";
 import Technology from "@/components/sections/home/Technology";
 import Gallery from "@/components/sections/home/Gallery";
@@ -23,7 +23,9 @@ export default function Home() {
         <VideoHero />
 
         {/* Champagne wave CTA ribbon (gold particles) */}
-        <WaveHighlight particles="gold" className="my-16" />
+        <WaveHighlight particles="gold">
+          {/* optional headline/cta/content or leave empty for pure band */}
+        </WaveHighlight>
 
         <Why3D />
         <Technology />
