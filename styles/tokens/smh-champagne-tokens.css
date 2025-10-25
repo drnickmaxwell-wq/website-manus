@@ -3,7 +3,7 @@
   --smh-primary-magenta:#C2185B;--smh-primary-teal:#40C4B4;--smh-accent-gold:#D4AF37;
   --smh-champagne:#F9E8C3;--smh-sand:#F8F4EE;
   --smh-bg:#FFFFFF;--smh-text:#1A1A1A;--smh-text-muted:#4C4C4C;
-  --smh-gradient:linear-gradient(135deg,#D94BC6 0%,#00C2C7 100%);
+  --smh-gradient: linear-gradient(135deg, #C2185B 0%, #40C4B4 72%), linear-gradient(200deg, rgba(212,175,55,0.10), transparent);
   --motion-ease:cubic-bezier(0.645,0.045,0.355,1);--motion-hue-shift:3deg;--motion-ripple-speed:4s;--motion-hover-scale:1.03;
   --glow-gold:0 0 12px rgba(212,175,55,.45);--glow-teal:0 0 8px rgba(64,196,180,.40);--glow-magenta:0 0 8px rgba(194,24,91,.40);
   --shadow-elevate-light:0 4px 12px rgba(0,0,0,.05);
@@ -13,7 +13,7 @@
   --film-grain-opacity:.10;--particles-opacity:.10}
 @media (prefers-color-scheme:dark){
   :root{--smh-bg:#0D0E10;--smh-text:#FFFFFF;--smh-text-muted:#D3D3D3;
-    --smh-gradient:linear-gradient(135deg,#EE66D1 0%,#00D6DB 100%);
+    --smh-gradient: linear-gradient(135deg, #D63B76 0%, #48E8C6 72%), linear-gradient(200deg, rgba(198,162,76,0.12), transparent);
     --shadow-elevate-dark:0 4px 16px rgba(0,0,0,.40);
     --film-grain-opacity:.085;--particles-opacity:.06}}
 html{color:var(--smh-text);background:var(--smh-bg);font-family:var(--font-body)}
@@ -52,7 +52,12 @@ html{color:var(--smh-text);background:var(--smh-bg);font-family:var(--font-body)
 }
 
 /* Lock the hero surface to ONLY our gradient */
-.smh-hero-gradient-bg,
+.smh-hero-gradient-bg {
+  background-image: var(--smh-gradient);
+  background-size: 200% 200%;
+  animation: smhHueDrift 15s var(--motion-ease) infinite alternate;
+}
+
 .smh-hero-lock {
   background-image: var(--smh-hero-gradient) !important;
   background-repeat: no-repeat;
