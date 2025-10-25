@@ -18,7 +18,7 @@ export default function Hero_Champagne({
   return (
     <section
       className={[
-        "relative overflow-hidden smh-hero-gradient-bg smh-wave-mask",
+        "relative overflow-hidden smh-hero-gradient-bg smh-hero-lock smh-wave-mask",
         "min-h-[54vh] flex items-center",
         className,
       ].join(" ")}
