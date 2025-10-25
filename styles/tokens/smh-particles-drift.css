@@ -19,23 +19,23 @@
 }
 
 .smh-film-grain {
-  background-image: url("/textures/film-grain-desktop.webp");
+  background-image: url("/overlays/glow-dust.webp");
   background-size: cover;
   background-position: center;
   mix-blend-mode: overlay;
   opacity: .10;
 }
 @media (prefers-color-scheme: dark) {
-  .smh-film-grain { background-image: url("/textures/film-grain-dark.webp"); opacity: .08; }
+  .smh-film-grain { background-image: url("/overlays/glow-dust-dark.webp"); opacity: .08; }
 }
 @media (max-width: 640px) {
-  .smh-film-grain { background-image: url("/textures/film-grain-mobile.webp"); }
+  .smh-film-grain { background-image: url("/overlays/glow-dust.webp"); }
 }
 
 .smh-particles {
   background-size: 700px 700px;
   background-repeat: repeat;
-  background-image: var(--smh-particles, url("/textures/particles-gold.webp"));
+  background-image: var(--smh-particles, url("/overlays/glow-dust.webp"));
   mix-blend-mode: screen;      /* try 'plus-lighter' on Safari 17+ */
   opacity: .10;                /* tune per section */
   will-change: background-position;
@@ -43,9 +43,9 @@
 }
 .smh-particles.slow { animation: smhDriftSlow 60s linear infinite; }
 
-.smh-particles.gold    { --smh-particles: url("/textures/particles-gold.webp"); }
-.smh-particles.magenta { --smh-particles: url("/textures/particles-magenta.webp"); }
-.smh-particles.teal    { --smh-particles: url("/textures/particles-teal.webp"); }
+.smh-particles.gold    { --smh-particles: url("/overlays/glow-dust.webp"); }
+.smh-particles.magenta { --smh-particles: url("/overlays/glow-dust.webp"); }
+.smh-particles.teal    { --smh-particles: url("/overlays/glow-dust.webp"); }
 
 @media (prefers-reduced-motion: reduce) {
   .smh-particles { animation: none; opacity: .08; }
