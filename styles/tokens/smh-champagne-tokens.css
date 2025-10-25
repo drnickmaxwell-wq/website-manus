@@ -20,11 +20,11 @@ html{color:var(--smh-text);background:var(--smh-bg);font-family:var(--font-body)
 .smh-heading,h1,h2,h3,h4{font-family:var(--font-heading)}
 .smh-gradient-bg{background-image:var(--smh-gradient);background-size:200% 200%;animation:smhHueDrift 15s var(--motion-ease) infinite alternate}
 .smh-gold-border{border:1px solid color-mix(in oklab,var(--smh-accent-gold) 70%,transparent);box-shadow:var(--glow-gold)}
-.smh-film-grain{pointer-events:none;background-image:url("/textures/film-grain-desktop.webp");background-size:cover;opacity:var(--film-grain-opacity);mix-blend-mode:overlay}
-.smh-particles-gold{pointer-events:none;background-image:url("/textures/particles-gold.webp");background-size:cover;opacity:var(--particles-opacity)}
-.smh-particles-teal{pointer-events:none;background-image:url("/textures/particles-teal.webp");background-size:cover;opacity:var(--particles-opacity)}
-.smh-particles-magenta{pointer-events:none;background-image:url("/textures/particles-magenta.webp");background-size:cover;opacity:var(--particles-opacity)}
-.smh-wave-mask{-webkit-mask-image:url("/waves/smh-wave-mask.svg");mask-image:url("/waves/smh-wave-mask.svg");-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:cover;mask-size:cover;-webkit-mask-position:top center;mask-position:top center}
+.smh-film-grain{pointer-events:none;position:relative}
+.smh-particles-gold{pointer-events:none;background-image:url("/overlays/glow-dust.webp");background-size:cover;opacity:var(--particles-opacity)}
+.smh-particles-teal{pointer-events:none;background-image:url("/overlays/glow-dust.webp");background-size:cover;opacity:var(--particles-opacity)}
+.smh-particles-magenta{pointer-events:none;background-image:url("/overlays/glow-dust.webp");background-size:cover;opacity:var(--particles-opacity)}
+.smh-wave-mask{-webkit-mask-image:url("/waves/smh-wave-mask.svg");mask-image:url("/waves/smh-wave-mask.svg");-webkit-mask-repeat:no-repeat;mask-repeat:no-repeat;-webkit-mask-size:100% 160px;mask-size:100% 160px;-webkit-mask-position:top center;mask-position:top center}
 @keyframes smhHueDrift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(var(--motion-hue-shift))}}
 :focus-visible{outline:2px solid var(--smh-primary-teal);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.smh-gradient-bg{animation:none}[class*="smh-particles-"]{animation:none}}
@@ -51,8 +51,8 @@ html{color:var(--smh-text);background:var(--smh-bg);font-family:var(--font-body)
 /* Inline SVG wave mask (text-only; swaps to file mask later if desired) */
 .smh-wave-mask {
   --_w:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 160" preserveAspectRatio="none"><path d="M0 100 Q960 200 1920 100 L1920 160 L0 160 Z" fill="black"/></svg>';
-  -webkit-mask-image: url("data:image/svg+xml;utf8,var(--_w)");
-  mask-image: url("data:image/svg+xml;utf8,var(--_w)");
+  -webkit-mask-image: url("/waves/smh-wave-mask.svg"), url("data:image/svg+xml;utf8,var(--_w)");
+  mask-image: url("/waves/smh-wave-mask.svg"), url("data:image/svg+xml;utf8,var(--_w)");
   -webkit-mask-size: 100% 160px; mask-size: 100% 160px;
   -webkit-mask-repeat: no-repeat; mask-repeat:no-repeat;
   -webkit-mask-position: top center; mask-position: top center;
@@ -63,12 +63,18 @@ html{color:var(--smh-text);background:var(--smh-bg);font-family:var(--font-body)
 .smh-film-grain::before{
   content:""; position:absolute; inset:0; pointer-events:none;
   opacity: var(--film-grain-opacity, .10); mix-blend-mode: overlay;
-  background-image:
-    radial-gradient(circle at 12% 18%, rgba(255,255,255,.06) 0 1px, transparent 2px),
-    radial-gradient(circle at 66% 72%, rgba(0,0,0,.08) 0 1px, transparent 2px),
-    radial-gradient(circle at 82% 22%, rgba(255,255,255,.05) 0 1px, transparent 2px);
-  background-size: 3px 3px, 4px 4px, 5px 5px;
-  filter: contrast(140%) grayscale(100%);
+  background-image: url("/overlays/glow-dust.webp");
+  background-size: cover;
+}
+@media (prefers-color-scheme: dark) {
+  .smh-film-grain::before {
+    background-image: url("/overlays/glow-dust-dark.webp");
+  }
+}
+@media (max-width: 640px) {
+  .smh-film-grain::before {
+    background-image: url("/overlays/glow-dust-mobile.webp");
+  }
 }
 
 /* Procedural particles (gold/teal/magenta) */
@@ -77,17 +83,16 @@ html{color:var(--smh-text);background:var(--smh-bg);font-family:var(--font-body)
 .smh-particles::after{
   content:""; position:absolute; inset:0; opacity:.12; background-repeat:repeat;
   animation: smhParticleDrift 28s linear infinite alternate;
-}
-.smh-particles::before{
-  background-image:
-    radial-gradient(1px 1px at 20% 30%, color-mix(in oklab, var(--smh-accent-gold) 82%, transparent), transparent 60%),
-    radial-gradient(1.2px 1.2px at 72% 60%, color-mix(in oklab, var(--smh-primary-teal) 70%, transparent), transparent 60%);
+  background-image: url("/overlays/glow-dust.webp");
 }
 .smh-particles::after{
-  background-image:
-    radial-gradient(1px 1px at 42% 82%, color-mix(in oklab, var(--smh-primary-magenta) 70%, transparent), transparent 60%),
-    radial-gradient(1.2px 1.2px at 86% 24%, color-mix(in oklab, var(--smh-accent-gold) 70%, transparent), transparent 60%);
   animation-duration: 36s;
+}
+@media (prefers-color-scheme: dark) {
+  .smh-particles::before,
+  .smh-particles::after {
+    background-image: url("/overlays/glow-dust-dark.webp");
+  }
 }
 
 /* Motion */
