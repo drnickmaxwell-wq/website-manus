@@ -4,7 +4,7 @@ import { ChatProvider } from "@/contexts/ChatProvider";
 import ChatDock from "@/components/chat/ChatDock";
 import ChatOverlay from "@/components/chat/ChatOverlay";
 
-import VideoHero from "@/components/sections/home/VideoHero";
+import Hero_Champagne from "@/components/hero/Hero_Champagne";
 import WaveHighlight from "@/components/brand/WaveHighlight";
 import Why3D from "@/components/sections/home/Why3D";
 import Technology from "@/components/sections/home/Technology";
@@ -18,9 +18,16 @@ import JsonLd from "@/lib/seo/JsonLd";
 export default function Home() {
   return (
     <ChatProvider>
-      <main>
-        {/* Hero video with gradient fallback (component already in repo) */}
-        <VideoHero />
+      <Hero_Champagne
+        title="Experience Luxury Dental Care by the Sea"
+        lead="Quiet luxury, 3D-first dentistry in West Sussex. From same-day veneers to digital twin smile simulations, we’re ‘Going the Extra Smile’."
+        ctas={[
+          { label: "Book Consultation", href: "/contact" },
+          { label: "Watch Our Story", href: "#" },
+        ]}
+      />
+
+      <main className="relative z-10">
 
         {/* Champagne wave CTA ribbon */}
         <WaveHighlight />

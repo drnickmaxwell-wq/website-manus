@@ -28,3 +28,76 @@ html{color:var(--smh-text);background:var(--smh-bg);font-family:var(--font-body)
 @keyframes smhHueDrift{0%{filter:hue-rotate(0deg)}100%{filter:hue-rotate(var(--motion-hue-shift))}}
 :focus-visible{outline:2px solid var(--smh-primary-teal);outline-offset:3px}
 @media (prefers-reduced-motion:reduce){.smh-gradient-bg{animation:none}[class*="smh-particles-"]{animation:none}}
+/* ============================================================
+   Champagne DESIGN MODE (no binaries)
+   Renders gradient, film grain, particles, and wave mask using CSS/SVG only.
+   Assets can be swapped later to file-backed overlays with a single flag.
+   ============================================================ */
+
+/* Base hero gradient with soft gold halo */
+:root {
+  --smh-hero-gradient:
+    linear-gradient(135deg, var(--smh-primary-magenta) 0%, var(--smh-primary-teal) 72%),
+    radial-gradient(circle at 80% 120%, color-mix(in oklab, var(--smh-accent-gold) 30%, transparent), transparent 60%);
+}
+
+/* Section skin for hero */
+.smh-hero-gradient-bg {
+  background-image: var(--smh-hero-gradient);
+  background-size: 200% 200%;
+  animation: smhHueDrift 15s var(--motion-ease) infinite alternate;
+}
+
+/* Inline SVG wave mask (text-only; swaps to file mask later if desired) */
+.smh-wave-mask {
+  --_w:'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1920 160" preserveAspectRatio="none"><path d="M0 100 Q960 200 1920 100 L1920 160 L0 160 Z" fill="black"/></svg>';
+  -webkit-mask-image: url("data:image/svg+xml;utf8,var(--_w)");
+  mask-image: url("data:image/svg+xml;utf8,var(--_w)");
+  -webkit-mask-size: 100% 160px; mask-size: 100% 160px;
+  -webkit-mask-repeat: no-repeat; mask-repeat:no-repeat;
+  -webkit-mask-position: top center; mask-position: top center;
+}
+
+/* Procedural film grain (no images) */
+.smh-film-grain { position: relative; }
+.smh-film-grain::before{
+  content:""; position:absolute; inset:0; pointer-events:none;
+  opacity: var(--film-grain-opacity, .10); mix-blend-mode: overlay;
+  background-image:
+    radial-gradient(circle at 12% 18%, rgba(255,255,255,.06) 0 1px, transparent 2px),
+    radial-gradient(circle at 66% 72%, rgba(0,0,0,.08) 0 1px, transparent 2px),
+    radial-gradient(circle at 82% 22%, rgba(255,255,255,.05) 0 1px, transparent 2px);
+  background-size: 3px 3px, 4px 4px, 5px 5px;
+  filter: contrast(140%) grayscale(100%);
+}
+
+/* Procedural particles (gold/teal/magenta) */
+.smh-particles { position: absolute; inset: 0; pointer-events: none; }
+.smh-particles::before,
+.smh-particles::after{
+  content:""; position:absolute; inset:0; opacity:.12; background-repeat:repeat;
+  animation: smhParticleDrift 28s linear infinite alternate;
+}
+.smh-particles::before{
+  background-image:
+    radial-gradient(1px 1px at 20% 30%, color-mix(in oklab, var(--smh-accent-gold) 82%, transparent), transparent 60%),
+    radial-gradient(1.2px 1.2px at 72% 60%, color-mix(in oklab, var(--smh-primary-teal) 70%, transparent), transparent 60%);
+}
+.smh-particles::after{
+  background-image:
+    radial-gradient(1px 1px at 42% 82%, color-mix(in oklab, var(--smh-primary-magenta) 70%, transparent), transparent 60%),
+    radial-gradient(1.2px 1.2px at 86% 24%, color-mix(in oklab, var(--smh-accent-gold) 70%, transparent), transparent 60%);
+  animation-duration: 36s;
+}
+
+/* Motion */
+@keyframes smhParticleDrift {
+  0%   { transform: translate3d(0,0,0) }
+  100% { transform: translate3d(-2%, -3%, 0) }
+}
+
+/* Accessibility */
+@media (prefers-reduced-motion: reduce){
+  .smh-hero-gradient-bg { animation: none; }
+  .smh-particles::before, .smh-particles::after { animation: none; }
+}
