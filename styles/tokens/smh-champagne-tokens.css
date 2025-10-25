@@ -32,21 +32,32 @@ html{color:var(--smh-text);background:var(--smh-bg);font-family:var(--font-body)
 /* Champagne Hero Lock (v2)     */
 /* ============================ */
 
-/* 1) Correct gradient + gold halo (highest priority variable) */
+/* === SMH Champagne — canonical hero gradient (single source of truth) === */
+/* Visual spec: MAGENTA starts top/left, blends to TEAL at bottom/right. */
 :root {
-  --smh-hero-gradient-core: linear-gradient(135deg, var(--smh-primary-magenta) 0%, var(--smh-primary-teal) 72%);
-  --smh-hero-gold-halo: radial-gradient(circle at 78% 118%, color-mix(in oklab, var(--smh-accent-gold) 30%, transparent), transparent 60%);
-  --smh-hero-gradient: var(--smh-hero-gradient-core), var(--smh-hero-gold-halo);
+  /* DO NOT redefine this anywhere else. */
+  --smh-hero-gradient-base: linear-gradient(to bottom right,
+    var(--smh-primary-magenta) 0%,
+    var(--smh-primary-teal) 72%
+  );
+
+  /* Subtle gold halo on large screens (kept very light) */
+  --smh-hero-gold-halo: radial-gradient(circle at 78% 118%,
+    color-mix(in oklab, var(--smh-accent-gold) 26%, transparent),
+    transparent 60%
+  );
+
+  /* Final stack used everywhere */
+  --smh-hero-gradient: var(--smh-hero-gradient-base), var(--smh-hero-gold-halo);
 }
 
-/* 2) Force hero surface to use ONLY our gradient (wins over legacy) */
+/* Lock the hero surface to ONLY our gradient */
 .smh-hero-gradient-bg,
 .smh-hero-lock {
   background-image: var(--smh-hero-gradient) !important;
-  background-size: 200% 200%;
   background-repeat: no-repeat;
   background-position: center top;
-  animation: smhHueDrift 15s var(--motion-ease) infinite alternate;
+  background-size: 200% 200%;
 }
 
 /* 3) Force wave mask to file (if present), else fallback path shape */
