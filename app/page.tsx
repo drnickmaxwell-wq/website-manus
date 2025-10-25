@@ -19,11 +19,11 @@ export default function Home() {
   return (
     <ChatProvider>
       <Hero_Champagne
-        title="Experience Luxury Dental Care by the Sea"
-        lead="Quiet luxury, 3D-first dentistry in West Sussex. From same-day veneers to digital twin smile simulations, we’re ‘Going the Extra Smile’."
+        title="St Mary’s House Dental Care"
+        lead="Quiet luxury. 3D-first dentistry by the sea — veneers, implants, and aligners with digital precision."
         ctas={[
           { label: "Book Consultation", href: "/contact" },
-          { label: "Watch Our Story", href: "#" },
+          { label: "Explore Treatments", href: "/treatments" },
         ]}
       />
 
