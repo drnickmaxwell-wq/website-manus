@@ -1,0 +1,124 @@
+{
+  "timestamp": "2025-10-25T09:07:00Z",
+  "found": {
+    "files": [
+      "styles/tokens/smh-champagne-tokens.css",
+      "tailwind.config.ts",
+      "app/layout.tsx",
+      "app/globals.css",
+      "components/hero/Hero_Champagne.tsx",
+      "components/layout/header.tsx",
+      "components/brand/BrandParticles.tsx",
+      "lib/seo/JsonLd.tsx",
+      "lib/analytics/events.ts",
+      "app/diagnostics/design/page.tsx",
+      "app/diagnostics/textures/page.tsx",
+      "app/diagnostics/treatments/page.tsx"
+    ],
+    "assets": [
+      "public/waves/smh-wave-mask.svg",
+      "public/waves/smh-wave-hero-desktop.webp",
+      "public/waves/smh-wave-hero-mobile.webp",
+      "public/waves/smh-wave-footer.webp",
+      "public/waves/smh-wave-cta.webp",
+      "public/brand/waves/waves-bg-1920.jpg",
+      "public/brand/gradients/gradient.webp",
+      "public/gradients/hero-gradient-fallback.webp",
+      "public/gradients/hero-gradient-fallback-dark.webp",
+      "public/gradients/hero-gradient-soft.webp",
+      "public/overlays/glow-dust.webp",
+      "public/overlays/glow-dust-dark.webp",
+      "public/overlays/glow-dust-mobile.webp"
+    ]
+  },
+  "missing": {
+    "files": [
+      "components/layout/Header_Glass.tsx"
+    ],
+    "assets": [
+      "public/brand-polish/smh-wave-mask.svg",
+      "public/brand-polish/film-grain.webp",
+      "public/brand-polish/particles-gold.webp",
+      "public/brand-polish/particles-teal.webp",
+      "public/brand-polish/particles-magenta.webp",
+      "public/assets/waves/waves-bg-1920.webp",
+      "public/textures/film-grain-desktop.webp",
+      "public/textures/film-grain-dark.webp",
+      "public/textures/film-grain-mobile.webp",
+      "public/textures/particles-gold.webp",
+      "public/textures/particles-teal.webp",
+      "public/textures/particles-magenta.webp"
+    ]
+  },
+  "routes": [
+    "/",
+    "/3d-showcase",
+    "/admin",
+    "/admin/appointments",
+    "/ai-smile-analysis",
+    "/ai-smile-quiz",
+    "/all-treatments",
+    "/blog",
+    "/brand-test",
+    "/diagnostics/design",
+    "/diagnostics/textures",
+    "/diagnostics/treatments",
+    "/our-team",
+    "/patient-info",
+    "/patient-info/blog",
+    "/patient-info/leaflets",
+    "/patient-info/newsletter",
+    "/patient-info/stories",
+    "/patient-stories",
+    "/technology",
+    "/treatments",
+    "/treatments/3d-dentistry",
+    "/treatments/3d-dentistry/3d-same-day-dentures",
+    "/treatments/3d-dentistry/3d-printed-veneers",
+    "/treatments/3d-dentistry/3d-implants-overview",
+    "/treatments/3d-dentistry/3d-restorative-dentistry",
+    "/treatments/implants",
+    "/treatments/implants/same-day-implants",
+    "/treatments/implants/3d-surgically-guided-implants",
+    "/treatments/implants/all-on-4-6-same-day",
+    "/treatments/implants/3d-printed-restorations",
+    "/treatments/veneers",
+    "/treatments/whitening",
+    "/treatments/[category]",
+    "/treatments/[category]/[slug]",
+    "/video-consultation",
+    "/tools/assets",
+    "/tools/manus-import",
+    "/api/assets/check"
+  ],
+  "tokensImported": true,
+  "tailwindMappingOk": true,
+  "heroWrapperClasses": "relative overflow-hidden smh-hero-gradient-bg smh-wave-mask",
+  "legacyOverrides": [
+    {
+      "path": "styles/brand-waves.css",
+      "line": 1,
+      "excerpt": ".bg-wave-hero{background-image:var(--gradient-primary),url(\"/waves/smh-wave-hero-desktop.webp\");..."
+    },
+    {
+      "path": "styles/tokens/smh-particles-drift.css",
+      "line": 22,
+      "excerpt": ".smh-film-grain { background-image: url(\"/textures/film-grain-desktop.webp\"); ... }"
+    },
+    {
+      "path": "styles/tokens/smh-champagne-tokens.css",
+      "line": 23,
+      "excerpt": ".smh-film-grain{...background-image:url(\"/textures/film-grain-desktop.webp\");...}"
+    },
+    {
+      "path": "app/tools/assets/page.tsx",
+      "line": 68,
+      "excerpt": "backgroundImage: `url('/gradients/hero-gradient-soft.webp'), url('/textures/film-grain-desktop.webp')`"
+    }
+  ],
+  "versions": {
+    "next": "15.5.2",
+    "react": "19.1.0",
+    "tailwind": "^4"
+  }
+}
