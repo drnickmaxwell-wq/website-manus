@@ -211,9 +211,17 @@ export default function Page() {
   }));
 
   const videos = VIDEO_GROUP.items.map(loadVideo);
+  const overlayPaths = {
+    default: "/overlays/glow-dust.webp",
+    dark: "/overlays/glow-dust-dark.webp",
+    mobile: "/overlays/glow-dust-mobile.webp",
+  };
 
   return (
     <div className="mx-auto max-w-7xl px-4 py-10">
+      <p className="mb-6 rounded-xl border border-neutral-800/70 bg-neutral-900/40 px-4 py-3 text-xs text-neutral-300">
+        Champagne hero overlays now resolve to {overlayPaths.default} (dark: {overlayPaths.dark}, mobile: {overlayPaths.mobile}).
+      </p>
       <header className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h1 className="text-3xl font-bold">SMH Asset Diagnostics</h1>
