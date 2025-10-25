@@ -6,6 +6,12 @@ import ChatOverlay from "@/components/chat/ChatOverlay";
 
 import Hero_Champagne from "@/components/hero/Hero_Champagne";
 import WaveHighlight from "@/components/brand/WaveHighlight";
+import SignatureServices from "@/components/sections/SignatureServices";
+import TechnologyByTheSea from "@/components/sections/TechnologyByTheSea";
+import PatientStories from "@/components/sections/PatientStories";
+import FeesAndPlans from "@/components/sections/FeesAndPlans";
+import FAQsBand from "@/components/sections/FAQsBand";
+import GoldCTARibbon from "@/components/sections/GoldCTARibbon";
 import Why3D from "@/components/sections/home/Why3D";
 import Technology from "@/components/sections/home/Technology";
 import Gallery from "@/components/sections/home/Gallery";
@@ -32,6 +38,15 @@ export default function Home() {
         {/* Champagne wave CTA ribbon */}
         <WaveHighlight />
 
+        {/* New Champagne sections */}
+        <SignatureServices />
+        <TechnologyByTheSea />
+        <PatientStories />
+        <FeesAndPlans />
+        <FAQsBand />
+        <GoldCTARibbon />
+
+        {/* Existing sections */}
         <Why3D />
         <Technology />
         <Gallery />
